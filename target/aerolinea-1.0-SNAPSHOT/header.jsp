@@ -10,11 +10,18 @@
         <nav class="navbar navbar-expand-lg">
 
            
+        
             <div class="container-fluid navbar navbar-dark bg-dark">
-                
                   <div class="navbar-header">
                         <ul class="navbar-nav ml-auto">
                             
+                    <li class="nav-item">        
+                <a href="index.jsp"><img src="Imagenes/logo.png" class="logo-brand"  style="width: 50px; height: 50px;"></a>
+                </li> 
+                
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.jsp"><strong>Ingresar</strong></a>
+                        </li>    
                        
                         <li class="nav-item">
                             <a class="nav-link" href="gestion_tipo_aviones.jsp"><strong>Gestión de tipos de aviones</strong></a>
