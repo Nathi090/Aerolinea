@@ -27,13 +27,6 @@ public class Connection {
         return conn;
     }
     
-    public static void main (String [ ] args) {
-        
-        System.out.println("Arroz con frijoles");
-
- 
-
-    }
     
 }
 
