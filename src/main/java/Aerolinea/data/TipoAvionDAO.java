@@ -39,7 +39,7 @@ public class TipoAvionDAO {
         return tipoavion;
     }
     
-    public ArrayList<TipoAvion> selectAll(){
+    public static ArrayList<TipoAvion> selectAll(){
         ArrayList<TipoAvion> lista = new ArrayList<>();
         try {
             PreparedStatement stm = Connection.getConnection().prepareStatement(SELECTALL);

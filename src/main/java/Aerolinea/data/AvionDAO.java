@@ -21,7 +21,7 @@ public class AvionDAO {
     private static final String INSERTAR = "call prc_ins_avion(?,?,?,?)";
     private static final String SELECTALL = "select * from avion";
     
-    public boolean insert(Avion avion){
+    public static boolean insert(Avion avion){
         boolean flag = false;
         try {
             java.sql.Connection con = Connection.getConnection();
@@ -40,7 +40,7 @@ public class AvionDAO {
         return flag;
     }
     
-    public ArrayList<Avion> selectAll(){
+    public static ArrayList<Avion> selectAll(){
         ArrayList<Avion> lista = new ArrayList<>();
         try {
             java.sql.Connection con = Connection.getConnection();
