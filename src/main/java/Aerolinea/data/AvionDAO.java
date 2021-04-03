@@ -21,7 +21,8 @@ public class AvionDAO {
     private static final String INSERTAR = "call prc_ins_avion(?,?,?,?)";
     private static final String SELECTALL = "select * from avion";
     
-    public void insert(Avion avion){
+    public boolean insert(Avion avion){
+        boolean flag = false;
         try {
             java.sql.Connection con = Connection.getConnection();
             
@@ -31,11 +32,12 @@ public class AvionDAO {
             stm.setString(2, avion.getMarca());
             stm.setInt(3, avion.getTipoavion().getId());
             
-            stm.executeUpdate();
+            flag = stm.execute();
             
         } catch (SQLException ex) {
             Logger.getLogger(AvionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return flag;
     }
     
     public ArrayList<Avion> selectAll(){
