@@ -46,7 +46,7 @@ public class UsuarioDAO {
     }
     
     public static Usuario select(String username){
-        Usuario user;
+        Usuario user = null;
         try {
             PreparedStatement stm = Connection.getConnection().prepareStatement(SELECT);
             ResultSet rs = stm.executeQuery();
@@ -68,6 +68,7 @@ public class UsuarioDAO {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return user;
     }
 
 }
