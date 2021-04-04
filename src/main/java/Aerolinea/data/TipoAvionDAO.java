@@ -25,6 +25,7 @@ public class TipoAvionDAO {
         TipoAvion tipoavion = null;
         try {
             PreparedStatement stm = Connection.getConnection().prepareStatement(SELECT);
+            
             stm.setInt(0, id);
             ResultSet rs = stm.executeQuery();
             if(rs.next()){
@@ -44,6 +45,7 @@ public class TipoAvionDAO {
         try {
             PreparedStatement stm = Connection.getConnection().prepareStatement(SELECTALL);
             ResultSet rs = stm.executeQuery();
+            
             while(rs.next()){
                 TipoAvion tipoavion = new TipoAvion(rs.getInt("id"));
                 tipoavion.setFilas(rs.getInt("filas"));

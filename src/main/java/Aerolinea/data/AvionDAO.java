@@ -23,10 +23,9 @@ public class AvionDAO {
     
     public static boolean insert(Avion avion){
         boolean flag = false;
-        try {
-            java.sql.Connection con = Connection.getConnection();
+        try {         
+            PreparedStatement stm = Connection.getConnection().prepareStatement(INSERTAR);
             
-            PreparedStatement stm = con.prepareStatement(INSERTAR);
             stm.setInt(0, avion.getAnno());
             stm.setString(1, avion.getModelo());
             stm.setString(2, avion.getMarca());
@@ -43,10 +42,9 @@ public class AvionDAO {
     public static ArrayList<Avion> selectAll(){
         ArrayList<Avion> lista = new ArrayList<>();
         try {
-            java.sql.Connection con = Connection.getConnection();
-            
-            PreparedStatement stm = con.prepareStatement(SELECTALL);
+            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECTALL);
             ResultSet rs = stm.executeQuery();
+            
             while(rs.next()){
                 Avion avion = new Avion(rs.getInt("id"));
                 avion.setAnno(rs.getInt("anno"));
