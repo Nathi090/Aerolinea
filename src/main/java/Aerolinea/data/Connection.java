@@ -13,6 +13,7 @@ package Aerolinea.data;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import oracle.jdbc.OracleDriver;
 
 public class Connection {
     private static java.sql.Connection conn;
@@ -20,6 +21,7 @@ public class Connection {
     public static java.sql.Connection getConnection(){
         try {
             if(conn == null)
+                DriverManager.registerDriver(new OracleDriver());
                 conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "root");
         } catch (SQLException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);

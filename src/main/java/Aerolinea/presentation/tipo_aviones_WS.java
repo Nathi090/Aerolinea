@@ -35,8 +35,8 @@ public class tipo_aviones_WS {
     @OnMessage
     public List<TipoAvion> onMessage(Session session, List<TipoAvion> msg) throws IOException, SQLException, EncodeException {
         Aerolinea.model.Model model = Model.instance();
-        TipoAvion tipos = (TipoAvion) model.tipos();
-        System.out.println(tipos.toString());
+        List<TipoAvion> tipos = model.tipos();
+//        System.out.println(tipos.toString());
         System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
          try {
             session.getBasicRemote().sendObject(tipos);

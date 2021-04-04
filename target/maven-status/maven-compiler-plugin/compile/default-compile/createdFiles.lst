@@ -8,6 +8,7 @@ Aerolinea\data\TipoAvionDAO.class
 Aerolinea\model\Usuario.class
 Aerolinea\model\Reserva.class
 Aerolinea\presentation\decoder\tipo_aviones_decoder.class
+Aerolinea\data\UsuarioDAO.class
 Aerolinea\model\Horario.class
 tipo_aviones_WS.class
 Aerolinea\model\TipoAvion.class
