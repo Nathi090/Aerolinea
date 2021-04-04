@@ -1,0 +1,15 @@
+Aerolinea\data\AvionDAO.class
+Aerolinea\model\Tiquete.class
+Aerolinea\model\Model.class
+Aerolinea\model\Avion.class
+Aerolinea\model\Ruta.class
+Aerolinea\model\Vuelo.class
+Aerolinea\data\TipoAvionDAO.class
+Aerolinea\model\Usuario.class
+Aerolinea\model\Reserva.class
+Aerolinea\presentation\decoder\tipo_aviones_decoder.class
+Aerolinea\model\Horario.class
+tipo_aviones_WS.class
+Aerolinea\model\TipoAvion.class
+Aerolinea\data\Connection.class
+Aerolinea\presentation\encoder\tipo_aviones_encoder.class
