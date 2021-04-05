@@ -33,26 +33,27 @@
         
         <script>
             
-             function loaded(){
-                    cargar_tipo_aviones();
-                }
-
-              $(loaded);
+            var aviones;
+            var tipos;
             
-            function cargar_tipo_aviones(){
-               var ws = new WebSocket("ws://localhost:8084/aerolinea/tipo_aviones");
+            function loaded(){
+                cargar_aviones();
+            }
+
+            $(loaded);
+             
+                        
+            function cargar_aviones(){
+               var ws = new WebSocket("ws://localhost:8084/aerolinea/aviones");
                
                ws.onopen = function(event){
-                   ws.send("Bring it on");
+                   ws.send(event);
                }
                ws.onclose = function(event){
-                   console.log(event);
                }
                
                ws.onmessage = function(event){
-                   var msg = JSON.parse(event.data);
-                   console.log("AAAAAAAAAAAAAAAA")
-                   console.log(msg)
+                   console.log(JSON.parse(event.data));
                    
                }
             }

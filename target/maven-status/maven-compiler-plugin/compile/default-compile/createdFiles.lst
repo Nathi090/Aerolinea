@@ -1,9 +1,12 @@
 Aerolinea\data\AvionDAO.class
+Aerolinea\presentation\encoder\aviones_encoder.class
+Aerolinea\presentation\aviones_WS.class
 Aerolinea\model\Tiquete.class
 Aerolinea\model\Model.class
 Aerolinea\model\Avion.class
 Aerolinea\model\Ruta.class
 Aerolinea\model\Vuelo.class
+Aerolinea\presentation\decoder\aviones_decoder.class
 Aerolinea\data\TipoAvionDAO.class
 Aerolinea\model\Usuario.class
 Aerolinea\model\Reserva.class
