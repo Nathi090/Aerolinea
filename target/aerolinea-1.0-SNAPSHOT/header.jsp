@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap.css" rel="stylesheet">
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg">
@@ -22,6 +23,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="login.jsp"><strong>Ingresar</strong></a>
                         </li>    
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="vuelos.jsp"><strong>Ver vuelos</strong></a>
+                        </li>
                        
                         <li class="nav-item">
                             <a class="nav-link" href="gestion_tipo_aviones.jsp"><strong>Gestión de tipos de aviones</strong></a>
