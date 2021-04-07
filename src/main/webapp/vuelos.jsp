@@ -21,11 +21,19 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="col-sm-12">
-                                        <div id="asientosTable"></div>
+                                        <table class="table" id="asientosTable">
+                                            <thead id="asientosTableHead">
+                                                
+                                            </thead>
+                                            <tbody id="asientosTableBody">
+                                                
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <div class="modal-footer" style="display: inline">
+                                <div class="modal-footer col-sm-12" style="display: inline">
                                     <input class="btn btn-outline-secondary" style="background-color: lightgray" value="Cancelar" data-dismiss="modal">
+                                    <input class="btn btn-sm btn-success" style="background-color: lightgreen" id="confirmAsientosBtn" value="Confirmar" data-dismiss="modal">
                                 </div>
                             </div>
                         </div>
@@ -42,24 +50,32 @@
                 $("#asientosMenu").modal("show");
                 
                 var c = 0;
-                for(var i = 0; i<11;i++){
-                    $("#asientosTable").append(i);
+                $("#asientosTableHead").append("<th>X</th>");
+                for(var i = 1; i<12;i++){
+                    $("#asientosTableHead").append(
+                        "<th>"+i+"</th>"    
+                        );
                 }
-                $("#asientosTable").append("<br>");
                 for(var i = 0; i<9; i++){
+                    var tr = $("<tr />");
+                    tr.append("<td>"+(i+1)+"</td>");
                     for(var j = 0; j<11; j++){
-                        $("#asientosTable").append(
+                        tr.append(
+                            '<td>'+
                             '<div class="form-check form-check-inline">'+
-                                '<input class="form-check-input" name="asientos" type="checkbox" id="inlineCheckbox'+c+'" value="'+c+'">'+
+                                '<input class="form-check-input" name="asientos" type="checkbox" id="inlineCheckbox'+c+'" value="'+(i+1)+','+(j+1)+'">'+
                                 '<label class="form-check-label" for="inlineCheckbox'+c+'"></label>'+
-                            '</div>'
+                            '</div>'+
+                            '</td>'
                             );
                         c++;
                     }
-                    $("#asientosTable").append("<br>");
+                    $("#asientosTableHead").append(tr);
+                    /*
                     if((i+1) % 3 === 0){
                         $("#asientosTable").append("<br>");
                     }
+                    */
                 }
 
                 $("input[name='asientos']").on("change", ()=>{
@@ -69,9 +85,22 @@
                     if(size > 2){
                         var a = $("input[name='asientos']:checked")[size-1].id;
                         $('#'+a).prop("checked", "");
-                        alert('Select maximum ' + 2 + ' Levels!');
+                        alert('Seleccione un maximo de ' + 2 + ' Asientos');
                     }
                 });
+                
+                $("#confirmAsientosBtn").on("click", ()=>{
+                    var lista = $("input[name='asientos']:checked");
+                    for(var i = 0; i < lista.length; i++){
+                        console.log(lista[i].value);
+                    }
+                    $("#asientosMenu").modal("hide");
+                });
+            });
+            
+            $(document).on('hide.bs.modal', '#asientosMenu', function() {
+                $("#asientosTableHead").html("");
+                $("#asientosTableBody").html("");
             });
             
             
