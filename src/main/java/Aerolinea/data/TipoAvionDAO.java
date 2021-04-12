@@ -26,7 +26,7 @@ public class TipoAvionDAO {
         try {
             PreparedStatement stm = Connection.getConnection().prepareStatement(SELECT);
             
-            stm.setInt(0, id);
+            stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             if(rs.next()){
                 tipoavion = new TipoAvion(rs.getInt("id"));

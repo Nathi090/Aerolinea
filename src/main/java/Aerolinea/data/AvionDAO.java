@@ -26,10 +26,10 @@ public class AvionDAO {
         try {         
             PreparedStatement stm = Connection.getConnection().prepareStatement(INSERTAR);
             
-            stm.setInt(0, avion.getAnno());
-            stm.setString(1, avion.getModelo());
-            stm.setString(2, avion.getMarca());
-            stm.setInt(3, avion.getTipoavion().getId());
+            stm.setInt(1, avion.getAnno());
+            stm.setString(2, avion.getModelo());
+            stm.setString(3, avion.getMarca());
+            stm.setInt(4, avion.getTipoavion().getId());
             
             flag = stm.execute();
             

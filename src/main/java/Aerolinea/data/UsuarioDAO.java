@@ -18,24 +18,24 @@ import java.util.logging.Logger;
  */
 public class UsuarioDAO {
     private static final String INSERTAR = "call prc_ins_usuario(?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String SELECT = "select * from usuario where username = '?'";
+    private static final String SELECT = "select * from usuario where username = ?";
     
     public static boolean insert(Usuario user){
         boolean flag = false;
         try {
             PreparedStatement stm = Connection.getConnection().prepareStatement(INSERTAR);
             
-            stm.setString(0, user.getUsername());
-            stm.setString(1, user.getNombre());
-            stm.setString(2, user.getApellidos());
-            stm.setString(3, user.getClave());
-            stm.setString(4, user.getCorreo());
-            stm.setDate(5, user.getFecNacimiento());
-            stm.setInt(6, user.getSexo());
-            stm.setInt(7, user.getTelTrabajo());
-            stm.setInt(8, user.getTelMovil());
-            stm.setString(9, user.getDireccion());
-            stm.setInt(10, user.getTipo());
+            stm.setString(1, user.getUsername());
+            stm.setString(2, user.getNombre());
+            stm.setString(3, user.getApellidos());
+            stm.setString(4, user.getClave());
+            stm.setString(5, user.getCorreo());
+            stm.setDate(6, user.getFecNacimiento());
+            stm.setInt(7, user.getSexo());
+            stm.setInt(8, user.getTelTrabajo());
+            stm.setInt(9, user.getTelMovil());
+            stm.setString(10, user.getDireccion());
+            stm.setInt(11, user.getTipo());
             
             flag = stm.execute();
             
@@ -49,6 +49,7 @@ public class UsuarioDAO {
         Usuario user = null;
         try {
             PreparedStatement stm = Connection.getConnection().prepareStatement(SELECT);
+            stm.setString(1,username);
             ResultSet rs = stm.executeQuery();
             
             if(rs.next()){
@@ -66,9 +67,11 @@ public class UsuarioDAO {
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
         return user;
     }
+
+    
 
 }

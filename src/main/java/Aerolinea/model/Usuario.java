@@ -29,6 +29,11 @@ public class Usuario {
         this.username = username;
     }
 
+    public Usuario(String username, String clave) {
+        this.username = username;
+        this.clave = clave;
+    }
+
     public Usuario(String username, String nombre, String apellidos, String clave, String correo, Date fecNacimiento, int sexo, int telTrabajo, int telMovil, String direccion, int tipo) {
         this.username = username;
         this.nombre = nombre;
@@ -157,8 +162,10 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "username=" + username + ", nombre=" + nombre + ", correo=" + correo + '}';
+        return "Usuario{" + "username=" + username + ", clave=" + clave + '}';
     }
+
+    
     
     
 }

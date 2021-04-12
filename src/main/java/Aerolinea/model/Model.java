@@ -2,6 +2,7 @@ package Aerolinea.model;
 
 import Aerolinea.data.AvionDAO;
 import Aerolinea.data.TipoAvionDAO;
+import Aerolinea.data.UsuarioDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,10 +26,12 @@ public class Model {
     
     AvionDAO avion;
     TipoAvionDAO tipo;
+    UsuarioDAO usuario;
     
     private Model(){
         avion = new AvionDAO();
         tipo = new TipoAvionDAO();
+        usuario = new UsuarioDAO();
 
         
     }
@@ -39,6 +42,11 @@ public class Model {
     
     public List<TipoAvion> tipos() throws SQLException{
         return tipo.selectAll();
+    }
+
+    public Boolean existe_usuario(Usuario usu) {
+        Usuario usuario_prueba = usuario.select(usu.getUsername());       
+        return  usuario_prueba != null && usu.getClave().equals(usuario_prueba.getClave());
     }
     
 }

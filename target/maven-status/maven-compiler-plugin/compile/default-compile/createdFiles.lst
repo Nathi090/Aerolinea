@@ -1,5 +1,7 @@
 Aerolinea\data\AvionDAO.class
 Aerolinea\presentation\encoder\aviones_encoder.class
+Aerolinea\presentation\encoder\salir_encoder.class
+Aerolinea\presentation\decoder\salir_decoder.class
 Aerolinea\presentation\aviones_WS.class
 Aerolinea\model\Tiquete.class
 Aerolinea\model\Model.class
@@ -7,13 +9,14 @@ Aerolinea\model\Avion.class
 Aerolinea\model\Ruta.class
 Aerolinea\model\Vuelo.class
 Aerolinea\presentation\decoder\aviones_decoder.class
+Aerolinea\presentation\encoder\usuario_encoder.class
 Aerolinea\data\TipoAvionDAO.class
 Aerolinea\model\Usuario.class
+Aerolinea\presentation\decoder\usuario_decoder.class
+Aerolinea\presentation\salir_WS.class
 Aerolinea\model\Reserva.class
-Aerolinea\presentation\decoder\tipo_aviones_decoder.class
 Aerolinea\data\UsuarioDAO.class
 Aerolinea\model\Horario.class
-tipo_aviones_WS.class
 Aerolinea\model\TipoAvion.class
 Aerolinea\data\Connection.class
-Aerolinea\presentation\encoder\tipo_aviones_encoder.class
+Aerolinea\presentation\usuario_WS.class

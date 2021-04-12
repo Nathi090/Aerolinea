@@ -17,11 +17,11 @@ import javax.websocket.EndpointConfig;
  *
  * @author nati2
  */
-public class aviones_decoder implements Decoder.Text<List<Avion>> {
+public class aviones_decoder implements Decoder.Text<String> {
 
     @Override
-    public List<Avion> decode(String s) throws DecodeException {
-        return new ArrayList<Avion>();
+    public String decode(String s) throws DecodeException {
+        return "Listo";
     }
 
     @Override

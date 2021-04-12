@@ -9,9 +9,7 @@ import Aerolinea.model.Avion;
 import Aerolinea.model.Model;
 import Aerolinea.model.TipoAvion;
 import Aerolinea.presentation.decoder.aviones_decoder;
-import Aerolinea.presentation.decoder.tipo_aviones_decoder;
 import Aerolinea.presentation.encoder.aviones_encoder;
-import Aerolinea.presentation.encoder.tipo_aviones_encoder;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,7 +33,7 @@ public class aviones_WS {
     }
 
     @OnMessage
-    public List<Avion> onMessage(Session session, List<Avion> msg) throws IOException, SQLException, EncodeException {
+    public List<Avion> onMessage(Session session, String msg) throws IOException, SQLException, EncodeException {
         Aerolinea.model.Model model = Model.instance();
         List<Avion> aviones = new ArrayList<>();
          try {

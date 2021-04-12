@@ -6,13 +6,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Aerolínea</title>
          <jsp:include page="header.jsp" />
-         <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+         
     </head>
     <body>
         
          <div style= "display: block; overflow: auto;">
-                <table id="tabla1" class="table table-secondary table-scroll">
+                <table class="table table-secondary table-scroll">
                     <thead >
                       <tr class="bg-secondary text-white">
                             <th>ID</th>
@@ -25,7 +24,7 @@
                             
                         </tr>
                     </thead>
-                        <tbody>
+                        <tbody id="tabla_aviones">
                    
                     </tbody>
                 </table>
@@ -33,29 +32,35 @@
         
         <script>
             
-            var aviones;
-            var tipos;
-            
-            function loaded(){
-                cargar_aviones();
+            var ws = new WebSocket("ws://localhost:8084/aerolinea/aviones");
+
+            ws.onopen = function(event){
+                ws.send("Enviar");
+            }
+            ws.onclose = function(event){
             }
 
-            $(loaded);
-             
-                        
-            function cargar_aviones(){
-               var ws = new WebSocket("ws://localhost:8084/aerolinea/aviones");
-               
-               ws.onopen = function(event){
-                   ws.send(event);
-               }
-               ws.onclose = function(event){
-               }
-               
-               ws.onmessage = function(event){
-                   console.log(JSON.parse(event.data));
-                   
-               }
+            ws.onmessage = function(event){
+                leer_e_imprimir(JSON.parse(event.data));  
+
+            }
+
+            
+            function leer_e_imprimir(aviones){
+                var tabla_aviones = $("#tabla_aviones");
+                aviones.forEach( (avion)=>{rowAvion(tabla_aviones, avion);} );
+            }
+            
+            function rowAvion(tabla_aviones, avion){
+                var tr =$("<tr id = "+avion.id+ "/>");
+                    tr.html("<td> "+avion.id+" </td>"+
+                    "<td> "+avion.anno+" </td>"+
+                    "<td> "+avion.modelo+" </td>"+
+                    "<td> "+avion.marca+" </td>"+
+                    "<td> "+avion.tipoavion.columnas * avion.tipoavion.filas+" </td>"+
+                    "<td> "+avion.tipoavion.filas+" </td>"+
+                    "<td> "+avion.tipoavion.columnas+" </td>");
+                tabla_aviones.append(tr);        
             }
             
         </script>
