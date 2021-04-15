@@ -155,7 +155,21 @@
             }
         }
         
+        function test(){
+            var ws = new WebSocket("ws://localhost:8084/aerolinea/vuelos");
+            ws.onopen = function(event){
+                
+                ws.send(JSON.stringify({"poio": "en papas", "papas": "fritas"}));
+            }
+            ws.onclose = function(event){
+            }
+            ws.onmessage = function(event){
+                console.log(1111);
+            }
+        }
+        
         init();
+        test();
         
     </script>
 </html>
