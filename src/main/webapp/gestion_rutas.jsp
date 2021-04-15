@@ -20,24 +20,71 @@
         
         </div>
         -->
+        <div  style="height:70px;">
+            <div>Agregar una nueva ruta</div>
+            <div class="dropdown">
+           
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<!--                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>-->
+            </div>
+        </div>
+                <a>Salida</a><input style="width: 200px" type="text" >
+                <a>Llegada</a><input style="width: 200px" type="text" >
+                <a>Duración</a><input style="width: 200px" type="text" >
+            <button type="button" class="btn btn-dark">Guardar</button>
         
+        
+        </div>
          <div style= "display: block; overflow: auto;">
-                <table id="tabla" class="table table-secondary table-scroll">
+                <table  class="table table-secondary table-scroll">
                     <thead >
                       <tr class="bg-secondary text-white">
                             <th>ID</th>
                             <th>Salida</th>
                             <th>Llegada</th>
                             <th>Duración</th>
-                            <th>Edición</th>
                             
                         </tr>
                     </thead>
-                        <tbody>
+                        <tbody id="tabla_rutas">
                     
                     </tbody>
                 </table>
                  </div>
+        
+        <script>
+            
+            var ws = new WebSocket("ws://localhost:8084/aerolinea/rutas");
+
+            ws.onopen = function(event){
+                ws.send("Enviar");
+            }
+            ws.onclose = function(event){
+            }
+
+            ws.onmessage = function(event){
+                leer_e_imprimir(JSON.parse(event.data));  
+
+            }
+
+            
+            function leer_e_imprimir(rutas){
+                var tabla_rutas = $("#tabla_rutas");
+                rutas.forEach( (ruta)=>{rowAvion(tabla_rutas, ruta);} );
+            }
+            
+            function rowAvion(tabla_rutas, ruta){
+                var tr =$("<tr id = ruta"+ruta.id+ "/>");
+                    tr.html("<td> "+ruta.id+" </td>"+
+                    "<td> "+ruta.origen+" </td>"+
+                    "<td> "+ruta.destino+" </td>"+
+                    "<td> "+ruta.duracion+" </td>");
+                    tabla_rutas.append(tr);        
+                }
+            
+        </script>
         
     </body>
         <jsp:include page="footer.jsp" />

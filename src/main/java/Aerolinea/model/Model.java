@@ -1,6 +1,7 @@
 package Aerolinea.model;
 
 import Aerolinea.data.AvionDAO;
+import Aerolinea.data.RutasDAO;
 import Aerolinea.data.TipoAvionDAO;
 import Aerolinea.data.UsuarioDAO;
 import java.sql.Connection;
@@ -27,12 +28,13 @@ public class Model {
     AvionDAO avion;
     TipoAvionDAO tipo;
     UsuarioDAO usuario;
+    RutasDAO rutas;
     
     private Model(){
         avion = new AvionDAO();
         tipo = new TipoAvionDAO();
         usuario = new UsuarioDAO();
-
+        rutas = new RutasDAO();
         
     }
     
@@ -47,6 +49,10 @@ public class Model {
     public Boolean existe_usuario(Usuario usu) {
         Usuario usuario_prueba = usuario.select(usu.getUsername());       
         return  usuario_prueba != null && usu.getClave().equals(usuario_prueba.getClave());
+    }
+
+    public List<Ruta> rutas() {
+        return rutas.selectAll();
     }
     
 }

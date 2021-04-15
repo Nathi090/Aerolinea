@@ -9,8 +9,9 @@
         <link href="css/bootstrap.css" rel="stylesheet">
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
         <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    </head>
+ 
     <body>
         <nav class="navbar navbar-expand-lg">
 
@@ -28,12 +29,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="login.jsp"><strong>Ingresar</strong></a>
                         </li>    
+
                     <%}%>  
                     <%if(!empty){%>
                         <li class="nav-item">
                             <a id = "logout" class="nav-link" href="#"><strong>Salir</strong></a>
                         </li>    
                     <%}%>   
+
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="vuelos.jsp"><strong>Ver vuelos</strong></a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="gestion_tipo_aviones.jsp"><strong>Gestión de tipos de aviones</strong></a>
                         </li>
@@ -85,6 +92,7 @@
         var ws = new WebSocket("ws://localhost:8084/aerolinea/salir");
 
             ws.onopen = function(event){
+                ws.send("Salir");
                 document.location === "index.jsp" ? location.reload() : document.location = "index.jsp";
             }
             ws.onclose = function(event){

@@ -10,7 +10,7 @@
     </head>
     <body>
         <div  style="height:70px;">
-            <div>Agregar un nuevo horario</div>
+            <div>Agregar un nuevo avión</div>
                 <a>ID</a><input style="width: 200px" type="text" >
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
