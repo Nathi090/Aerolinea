@@ -6,9 +6,16 @@
 package Aerolinea.presentation.decoder;
 
 import Aerolinea.model.Avion;
+import Aerolinea.model.Ruta;
 import Aerolinea.model.TipoAvion;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
@@ -17,11 +24,31 @@ import javax.websocket.EndpointConfig;
  *
  * @author nati2
  */
-public class rutas_decoder implements Decoder.Text<String> {
+public class rutas_decoder implements Decoder.Text<Ruta> {
 
     @Override
-    public String decode(String s) throws DecodeException {
-        return "Listo";
+    public Ruta decode(String s) throws DecodeException {
+        Gson gson = new Gson();
+        Ruta respuesta = null;
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            System.out.println( gson.fromJson(s, String.class));
+            
+            Map<String, ArrayList<String>> map = mapper.readValue(s, Map.class);
+               
+            System.out.println( map );
+            
+//            switch(map.get("type")){
+//                case "Ruta":
+//                    respuesta = gson.fromJson(mapper.writeValueAsString(map), Ruta.class);
+//                    break;
+//            }
+            
+        
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+        return respuesta;
     }
 
     @Override

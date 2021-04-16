@@ -3,6 +3,7 @@ Aerolinea\presentation\rutas_WS.class
 Aerolinea\data\RutasDAO.class
 Aerolinea\data\TipoAvionDAO.class
 Aerolinea\presentation\encoder\rutas_encoder.class
+Aerolinea\presentation\vuelos_WS.class
 Aerolinea\presentation\salir_WS.class
 Aerolinea\model\Horario.class
 Aerolinea\data\AvionDAO.class

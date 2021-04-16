@@ -30,10 +30,10 @@
                 <a class="dropdown-item" href="#">Something else here</a>-->
             </div>
         </div>
-                <a>Salida</a><input style="width: 200px" type="text" >
-                <a>Llegada</a><input style="width: 200px" type="text" >
-                <a>Duración</a><input style="width: 200px" type="text" >
-            <button type="button" class="btn btn-dark">Guardar</button>
+                <a id="Salida">Salida</a><input style="width: 200px" type="text" >
+                <a id="Llegada">Llegada</a><input style="width: 200px" type="text" >
+                <a id="Duracion">Duración</a><input style="width: 200px" type="text" >
+            <button id="guarda_ruta" type="button" class="btn btn-dark">Guardar</button>
         
         
         </div>
@@ -57,9 +57,12 @@
         <script>
             
             var ws = new WebSocket("ws://localhost:8084/aerolinea/rutas");
+            var leer = {
+                type: "Leer",
+            };
 
             ws.onopen = function(event){
-                ws.send("Enviar");
+                ws.send(leer);
             }
             ws.onclose = function(event){
             }
@@ -83,6 +86,40 @@
                     "<td> "+ruta.duracion+" </td>");
                     tabla_rutas.append(tr);        
                 }
+                
+                
+            function loaded(){
+                $("#guarda_ruta").on("click", () => {
+                    if (validate()) {
+                        var ruta = {
+                        type: "Ruta",
+                        origen: $("#usuario").val(),
+                        destino: $("#clave").val(),
+                        duracion: $("#duracion").val()
+                        };
+                        ws.send(ruta);
+                        
+                    }
+                    return false;
+                });
+
+            }
+
+            function validate() {
+                var val = true;
+                if ($("#Salida").val() === '') {
+                    val = false;
+                }
+                if ($("#Llegada").val() === '') {
+                    val = false;
+                }
+                if ($("#Duracion").val() === '') {
+                    val = false;
+                }
+                return val;
+            }
+            
+            $(loaded);
             
         </script>
         

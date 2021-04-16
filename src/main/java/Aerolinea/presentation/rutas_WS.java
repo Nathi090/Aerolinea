@@ -36,8 +36,13 @@ public class rutas_WS {
     }
 
     @OnMessage
-    public List<Ruta> onMessage(Session session, String msg) throws IOException, SQLException, EncodeException {
-        Aerolinea.model.Model model = Model.instance();
+    public List<Ruta> onMessage(Session session, Ruta ruta) throws IOException, SQLException, EncodeException {        
+        Aerolinea.model.Model model = Model.instance();   
+        
+        if (ruta != null){
+            model.insertRuta(ruta);
+        }
+             
         List<Ruta> rutas = new ArrayList<>();
          try {
             rutas = model.rutas();
@@ -45,6 +50,7 @@ public class rutas_WS {
         } catch (Exception ex) {
              System.out.println(ex);
         }
+        
         return rutas;
     }
 

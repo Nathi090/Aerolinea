@@ -54,5 +54,9 @@ public class Model {
     public List<Ruta> rutas() {
         return rutas.selectAll();
     }
+
+    public void insertRuta(Ruta ruta) {
+        rutas.insert(ruta);
+    }
     
 }
