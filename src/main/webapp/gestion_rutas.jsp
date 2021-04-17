@@ -57,12 +57,9 @@
         <script>
             
             var ws = new WebSocket("ws://localhost:8084/aerolinea/rutas");
-            var leer = {
-                type: "Leer",
-            };
-
+            
             ws.onopen = function(event){
-                ws.send(leer);
+                ws.send(JSON.stringify( ['{"metodo": "Leer"}'] ));
             }
             ws.onclose = function(event){
             }
@@ -92,12 +89,15 @@
                 $("#guarda_ruta").on("click", () => {
                     if (validate()) {
                         var ruta = {
+                        metodo: "Guardar",
                         type: "Ruta",
                         origen: $("#usuario").val(),
                         destino: $("#clave").val(),
                         duracion: $("#duracion").val()
                         };
-                        ws.send(ruta);
+                        let lista = [];
+                        lista.push(JSON.stringify(ruta));
+                        ws.send(JSON.stringify(lista));
                         
                     }
                     return false;
