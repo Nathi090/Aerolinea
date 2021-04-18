@@ -6,7 +6,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Aerolínea</title>
          <jsp:include page="header.jsp" />
-         <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     </head>
     <body>
         
@@ -27,13 +26,14 @@
         
         <div  style="height:70px;">
             <div>Agregar un nuevo horario</div>
-            <div id = "rutas_bd" class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" data-target="rutas_bd" aria-haspopup="true" aria-expanded="false">
                 Ruta
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<!--                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
+            <div  id = "rutas_bd" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+               <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Action</a>
+                <!-- <a class="dropdown-item" href="#">Another action</a>
                 <a class="dropdown-item" href="#">Something else here</a>-->
             </div>
         </div>
@@ -75,7 +75,7 @@
 
         ws.onmessage = function(event){
             console.log(JSON.parse(event.data));
-            leer_e_imprimir(JSON.parse(event.data));  
+            //leer_e_imprimir(JSON.parse(event.data));  
         }
         
         function leer_e_imprimir(rutas){
@@ -90,9 +90,7 @@
                        ruta.destino + "</a>");
                 tabla_rutas.append(db);        
             }
-            
-            
-        
+</script>        
     </body>
         <jsp:include page="footer.jsp" />
 </html>

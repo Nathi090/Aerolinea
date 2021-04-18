@@ -6,11 +6,12 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/bootstrap.css" rel="stylesheet">
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+        
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <script src="js/bootstrap.bundle.js" type="text/javascript"></script>
  
     <body>
         <nav class="navbar navbar-expand-lg">

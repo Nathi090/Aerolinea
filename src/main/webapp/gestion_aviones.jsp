@@ -6,7 +6,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Aerolínea</title>
          <jsp:include page="header.jsp" />
-         <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     </head>
     <body>
         <div  style="height:70px;">
