@@ -52,7 +52,7 @@
             }
             
             function rowAvion(tabla_aviones, avion){
-                var tr =$("<tr id = avion"+avion.id+ "/>");
+                var tr =$("<tr id = 'avion"+avion.id+ "'/>");
                     tr.html("<td> "+avion.id+" </td>"+
                     "<td> "+avion.anno+" </td>"+
                     "<td> "+avion.modelo+" </td>"+

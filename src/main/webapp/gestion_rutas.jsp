@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Aerolínea</title>
          <jsp:include page="header.jsp" />
@@ -76,7 +77,7 @@
             }
             
             function rowRuta(tabla_rutas, ruta){
-                var tr =$("<tr id = ruta"+ruta.id+ "/>");
+                var tr =$("<tr id = 'ruta"+ruta.id+ "'/>");
                     tr.html("<td> "+ruta.id+" </td>"+
                     "<td> "+ruta.origen+" </td>"+
                     "<td> "+ruta.destino+" </td>"+

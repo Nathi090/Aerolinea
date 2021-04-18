@@ -30,10 +30,10 @@
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" data-target="rutas_bd" aria-haspopup="true" aria-expanded="false">
                 Ruta
             </button>
-            <div  id = "rutas_bd" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-               <a class="dropdown-item" href="#" data-toggle="dropdown">Action</a>
-                <a class="dropdown-item" href="#">Action</a>
-                <!-- <a class="dropdown-item" href="#">Another action</a>
+            <div id = "rutas_bd" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+               <!--<a class="dropdown-item" href="#" data-toggle="dropdown">Action</a>
+                 <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
                 <a class="dropdown-item" href="#">Something else here</a>-->
             </div>
         </div>
@@ -65,10 +65,7 @@
                  </div>-->
 
     <script>
-        /*
-        $("#dropdownMenuButton").on("click", ()=>{
-            $("#rutas_bd").toggle();
-        });*/
+        
         
         var ws = new WebSocket("ws://localhost:8084/aerolinea/rutas");
 
@@ -80,7 +77,7 @@
 
         ws.onmessage = function(event){
             console.log(JSON.parse(event.data));
-            //leer_e_imprimir(JSON.parse(event.data));  
+            leer_e_imprimir(JSON.parse(event.data));  
         }
         
         function leer_e_imprimir(rutas){
@@ -89,7 +86,8 @@
         }
 
         function rowRuta(tabla_rutas, ruta){
-            var db =$("<a class='dropdown-item' href='#'>"+
+            var db =$("<a id = 'horario_ruta_"+ruta.id+"' "+
+                       "class='dropdown-item' href='#'>"+
                        ruta.id + " - " + 
                        ruta.origen + " - " +
                        ruta.destino + "</a>");
