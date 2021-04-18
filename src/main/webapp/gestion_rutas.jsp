@@ -32,7 +32,7 @@
         </div>
                 <a>Salida</a><input id="Salida" style="width: 200px" type="text" >
                 <a>Llegada</a><input id="Llegada" style="width: 200px" type="text" >
-                <a>Duración</a><input id="Duracion" style="width: 200px" type="text" >
+                <a>Duración</a><input id="Duracion" style="width: 200px" type="number" >
             <button id="guarda_ruta" type="button" class="btn btn-dark">Guardar</button>
         
         
