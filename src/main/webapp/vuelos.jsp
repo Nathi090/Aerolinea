@@ -11,9 +11,23 @@
         <button id="confirmBtn">xf</button>
         <div class="container">
             <div class="row">
+                <div class="col-sm-3">
+                    <input type="text" placeholder="Destino" class="form-control">
+                </div>
+                <div class="col-sm-3">
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-sm-3">
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-success" style="width: 100%">Buscar</button>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-12">
                     <table class="table table-striped">
-                        <thead class="bg-warning">
+                        <thead class="bg-warning" style="text-align: center">
                             <th>Origen</th>
                             <th>Destino</th>
                             <th>Fecha de salida</th>
@@ -22,7 +36,7 @@
                             <th>Asientos</th>
                             <th>X</th>
                         </thead>
-                        <tbody class="bg-white">
+                        <tbody id="vuelosTable" class="bg-white">
                             
                         </tbody>
                     </table>
@@ -63,8 +77,13 @@
         <jsp:include page="footer.jsp" />
     </footer>
     <script>
+        // VARIABLES --
+        var ws;
         var asientos = [];
+        //----------------
+        
         function init(){
+            initWS();
             $("#confirmBtn").on("click", ()=>{
                 $("#asientosMenu").modal("show");
                 
@@ -152,8 +171,8 @@
             }
         }
         
-        function test(){
-            var ws = new WebSocket("ws://localhost:8084/aerolinea/vuelos");
+        function initWS(){
+            ws = new WebSocket("ws://localhost:8084/aerolinea/vuelos");
             ws.onopen = function(event){
                 var rutaprueba = {"id": 1, "origen": "CR", "destino": "JPN", "duracion": 20};
                 rutaprueba.metodo = "selectAll";
@@ -163,16 +182,38 @@
                 a.push(JSON.stringify({"id": 2, "origen": "CR", "destino": "PAN", "duracion": 10}));
                 a.push(JSON.stringify({"id": 3, "origen": "CR", "destino": "US", "duracion": 3}));
                 ws.send(JSON.stringify(a));
-            }
+            };
             ws.onclose = function(event){
-            }
+            };
             ws.onmessage = function(event){
-                console.log(JSON.parse(event.data))
-            }
+                console.log(JSON.parse(event.data));
+                var data = JSON.parse(event.data);
+                switch(data[0].metodo){
+                    case "selectAll":
+                        listVuelos(data.slice(1));
+                        break;
+                    case "insert":
+                        break;
+                        
+                }
+            };
+        }
+        
+        function listVuelos(lista){
+            lista.forEach( v => {
+                var tr = $("<tr style='text-align: center' />");
+                tr.append("<td>"+v.horario.ruta.origen+"</td>");
+                tr.append("<td>"+v.horario.ruta.destino+"</td>");
+                tr.append("<td>"+v.ida+"</td>");
+                tr.append("<td>"+v.regreso+"</td>");
+                tr.append("<td>"+v.horario.precio+"</td>");
+                tr.append("<td>"+v.horario.avion.tipoavion.filas * v.horario.avion.tipoavion.columnas+"</td>");
+                tr.append("<td><button>comprar</button></td>");
+                $("#vuelosTable").append(tr);
+            });
         }
         
         init();
-        test();
         
     </script>
 </html>

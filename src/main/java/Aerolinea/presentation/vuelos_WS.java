@@ -40,8 +40,8 @@ public class vuelos_WS {
             switch( mapper.readValue(lista.get(0), Map.class).get("metodo").toString() ){
                 case "selectAll":
                     List<Vuelo> vuelos = Model.instance().vuelos();
-                    response += gson.toJson(vuelos);
-                    return gson.toJson(vuelos);
+                    response += gson.toJson(vuelos).replace('[', ',');
+                    return response;
                 case "insert":
                     return "121234";
                 default:
