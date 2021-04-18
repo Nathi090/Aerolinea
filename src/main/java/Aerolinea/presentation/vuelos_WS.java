@@ -5,9 +5,14 @@
  */
 package Aerolinea.presentation;
 
+import Aerolinea.model.Model;
+import Aerolinea.model.Ruta;
+import Aerolinea.model.Vuelo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,31 +31,25 @@ public class vuelos_WS {
     }
 
     @OnMessage
-    public void onMessage(Session session, String msg){
+    public String onMessage(Session session, String msg){
         Gson gson = new Gson();
-        
         ObjectMapper mapper = new ObjectMapper();
         try {
-            Map<String, String> map = mapper.readValue(msg, Map.class);
-               
-            System.out.println( map.get("poio") );
-            
-            switch(map.get("poio")){
-                case "123":
-                    System.out.println("NOL");
-                    break;
-                case "en papas":
-                    System.out.println("YES");
-                    break;
+            List<String> lista = mapper.readValue(msg, List.class);
+            switch( mapper.readValue(lista.get(0), Map.class).get("metodo").toString() ){
+                case "selectAll":
+                    List<Vuelo> vuelos = Model.instance().vuelos();
+                    return gson.toJson(vuelos);
+                case "insert":
+                    return "121234";
                 default:
-                    System.out.println("NOLL2");
-                    break;
+                    return "1 - a";
             }
             
         } catch (IOException ex) {
             Logger.getLogger(vuelos_WS.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        return "Nothing";
     }
 
     @OnClose

@@ -4,6 +4,7 @@ import Aerolinea.data.AvionDAO;
 import Aerolinea.data.RutasDAO;
 import Aerolinea.data.TipoAvionDAO;
 import Aerolinea.data.UsuarioDAO;
+import Aerolinea.data.VueloDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -57,6 +58,10 @@ public class Model {
 
     public void insertRuta(Ruta ruta) {
         rutas.insert(ruta);
+    }
+    
+    public List<Vuelo> vuelos(){
+        return VueloDAO.selectAll();
     }
     
 }

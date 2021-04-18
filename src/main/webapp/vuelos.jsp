@@ -158,13 +158,19 @@
         function test(){
             var ws = new WebSocket("ws://localhost:8084/aerolinea/vuelos");
             ws.onopen = function(event){
-                
-                ws.send(JSON.stringify({"poio": "en papas", "papas": "fritas"}));
+                var rutaprueba = {"id": 1, "origen": "CR", "destino": "JPN", "duracion": 20};
+                rutaprueba.metodo = "selectAll";
+                let a = [];
+                a.push(JSON.stringify({"metodo": "insert"}));
+                a.push(JSON.stringify({"id": 1, "origen": "CR", "destino": "JPN", "duracion": 20}));
+                a.push(JSON.stringify({"id": 2, "origen": "CR", "destino": "PAN", "duracion": 10}));
+                a.push(JSON.stringify({"id": 3, "origen": "CR", "destino": "US", "duracion": 3}));
+                ws.send(JSON.stringify(a));
             }
             ws.onclose = function(event){
             }
             ws.onmessage = function(event){
-                console.log(1111);
+                console.log(JSON.parse(event.data))
             }
         }
         

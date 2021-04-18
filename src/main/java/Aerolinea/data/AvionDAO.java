@@ -19,6 +19,7 @@ import java.util.logging.Logger;
  */
 public class AvionDAO {
     private static final String INSERTAR = "call prc_ins_avion(?,?,?,?)";
+    private static final String SELECT = "select * from avion where id = ?";
     private static final String SELECTALL = "select * from avion";
     
     public static boolean insert(Avion avion){
@@ -37,6 +38,26 @@ public class AvionDAO {
             Logger.getLogger(AvionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return flag;
+    }
+    
+    public static Avion select(int id){
+        Avion avion = null;
+        try {
+            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECT);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            
+            if(rs.next()){
+                avion = new Avion(rs.getInt("id"));
+                avion.setAnno(rs.getInt("anno"));
+                avion.setModelo(rs.getString("modelo"));
+                avion.setMarca(rs.getString("marca"));
+                avion.setTipoavion(TipoAvionDAO.select(rs.getInt("tipo_avion_id")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AvionDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return avion;
     }
     
     public static ArrayList<Avion> selectAll(){

@@ -19,6 +19,7 @@ import java.util.logging.Logger;
  */
 public class RutasDAO {
     private static final String INSERTAR = "call prc_ins_ruta(?,?,?)";
+    private static final String SELECT = "select * from ruta where id = ?";
     private static final String SELECTALL = "select * from ruta";
     
     public static boolean insert(Ruta ruta){
@@ -36,6 +37,25 @@ public class RutasDAO {
             Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return flag;
+    }
+    
+    public static Ruta select(int id){
+        Ruta ruta = null;
+        try {
+            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECT);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            
+            if(rs.next()){
+                ruta = new Ruta(rs.getInt("id"));
+                ruta.setOrigen(rs.getString("origen"));
+                ruta.setDestino(rs.getString("destino"));
+                ruta.setDuracion(rs.getInt("duracion"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ruta;
     }
     
     public static ArrayList<Ruta> selectAll(){
