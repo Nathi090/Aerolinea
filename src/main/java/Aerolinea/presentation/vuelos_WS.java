@@ -36,9 +36,11 @@ public class vuelos_WS {
         ObjectMapper mapper = new ObjectMapper();
         try {
             List<String> lista = mapper.readValue(msg, List.class);
+            String response = "[" + lista.get(0);
             switch( mapper.readValue(lista.get(0), Map.class).get("metodo").toString() ){
                 case "selectAll":
                     List<Vuelo> vuelos = Model.instance().vuelos();
+                    response += gson.toJson(vuelos);
                     return gson.toJson(vuelos);
                 case "insert":
                     return "121234";
