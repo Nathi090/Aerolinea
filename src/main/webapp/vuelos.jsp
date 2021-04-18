@@ -12,16 +12,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
-                    <input type="text" placeholder="Destino" class="form-control">
+                    <input type="text" id="destinoFld" placeholder="Destino" class="form-control">
                 </div>
                 <div class="col-sm-3">
-                    <input type="date" class="form-control">
+                    <input type="date" id="idaFld" class="form-control">
                 </div>
                 <div class="col-sm-3">
-                    <input type="date" class="form-control">
+                    <input type="date" id="regresoFld" class="form-control">
                 </div>
                 <div class="col-sm-3">
-                    <button class="btn btn-success" style="width: 100%">Buscar</button>
+                    <button class="btn btn-success" id="buscarBtn" style="width: 100%">Buscar</button>
                 </div>
             </div>
             <div class="row">
@@ -85,61 +85,66 @@
         function init(){
             initWS();
             $("#confirmBtn").on("click", ()=>{
+                seleccionarAsientos();
                 $("#asientosMenu").modal("show");
-                
-                var c = 0;
-                $("#asientosTableHead").append("<th style='text-align: center;'>X</th>");
-                for(var i = 1; i<12;i++){
-                    $("#asientosTableHead").append(
-                        "<th style='text-align: center;'>"+i+"</th>"    
-                        );
-                }
-                for(var i = 0; i<9; i++){
-                    var tr = $("<tr />");
-                    tr.append("<td style='text-align: center;'>"+(i+1)+"</td>");
-                    for(var j = 0; j<11; j++){
-                        tr.append(
-                            '<td style="text-align: center;">'+
-                            '<div class="form-check form-check-inline">'+
-                                '<input class="form-check-input" style="display: none" name="asientos" type="checkbox" id="checkbox'+c+'" value="'+(i+1)+','+(j+1)+'">'+
-                                '<label class="btn btn-lg btn-outline-secondary" id=checklabel'+c+' for="checkbox'+c+'" onclick="changeBox(checkbox'+c+', checklabel'+c+')"></label>'+
-                            '</div>'+
-                            '</td>'
-                            );
-                        c++;
-                    }
-                    $("#asientosTableBody").append(tr);
-                    
-                    if(i < 9-1 && (i+1) % 3 === 0){
-                        var tr = $("<tr />");
-                        for(var j = 0; j<12;j++){
-                            tr.append(
-                                "<td style='text-align: center;'>-</td>"    
-                                );
-                        }
-                        $("#asientosTableBody").append(tr);
-                    }
-                    
-                }
-                
-                $("input[name='asientos']").on("change", ()=>{
-                    console.log(12321412412);
-                });
-                
-                var x = $("input[name='asientos']");
-                for(var i = 0; i < x.length; i++){
-                    if(x[i].value === '7,5'){
-                        $("#checklabel"+x[i].id.match(/\d+/)[0]).addClass("btn-danger");
-                        $("#"+x[i].id).add("disabled");
-                    }
-                }
-                
             });
             
             $(document).on('hide.bs.modal', '#asientosMenu', function() {
                 $("#asientosTableHead").html("");
                 $("#asientosTableBody").html("");
             });
+            
+            $("#buscarBtn").on("click", ()=>{
+                console.log($("#idaFld").val());
+            });
+        }
+        
+        function seleccionarAsientos(){
+            var c = 0;
+            $("#asientosTableHead").append("<th style='text-align: center;'>X</th>");
+            for(var i = 1; i<12;i++){
+                $("#asientosTableHead").append(
+                    "<th style='text-align: center;'>"+i+"</th>"    
+                    );
+            }
+            for(var i = 0; i<9; i++){
+                var tr = $("<tr />");
+                tr.append("<td style='text-align: center;'>"+(i+1)+"</td>");
+                for(var j = 0; j<11; j++){
+                    tr.append(
+                        '<td style="text-align: center;">'+
+                        '<div class="form-check form-check-inline">'+
+                            '<input class="form-check-input" style="display: none" name="asientos" type="checkbox" id="checkbox'+c+'" value="'+(i+1)+','+(j+1)+'">'+
+                            '<label class="btn btn-lg btn-outline-secondary" id=checklabel'+c+' for="checkbox'+c+'" onclick="changeBox(checkbox'+c+', checklabel'+c+')"></label>'+
+                        '</div>'+
+                        '</td>'
+                        );
+                    c++;
+                }
+                $("#asientosTableBody").append(tr);
+
+                if(i < 9-1 && (i+1) % 3 === 0){
+                    var tr = $("<tr />");
+                    for(var j = 0; j<12;j++){
+                        tr.append(
+                            "<td style='text-align: center;'>-</td>"    
+                            );
+                    }
+                    $("#asientosTableBody").append(tr);
+                }
+
+            }
+            $("input[name='asientos']").on("change", ()=>{
+                console.log(12321412412);
+            });
+
+            var x = $("input[name='asientos']");
+            for(var i = 0; i < x.length; i++){
+                if(x[i].value === '7,5'){
+                    $("#checklabel"+x[i].id.match(/\d+/)[0]).addClass("btn-danger");
+                    $("#"+x[i].id).add("disabled");
+                }
+            }
         }
         
         function changeBox(check, label){
