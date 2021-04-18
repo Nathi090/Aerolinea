@@ -31,7 +31,7 @@
                 Ruta
             </button>
             <div  id = "rutas_bd" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-               <a class="dropdown-item" href="#">Action</a>
+               <a class="dropdown-item" href="#" data-toggle="dropdown">Action</a>
                 <a class="dropdown-item" href="#">Action</a>
                 <!-- <a class="dropdown-item" href="#">Another action</a>
                 <a class="dropdown-item" href="#">Something else here</a>-->
@@ -65,6 +65,11 @@
                  </div>-->
 
     <script>
+        /*
+        $("#dropdownMenuButton").on("click", ()=>{
+            $("#rutas_bd").toggle();
+        });*/
+        
         var ws = new WebSocket("ws://localhost:8084/aerolinea/rutas");
 
         ws.onopen = function(event){
