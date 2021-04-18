@@ -115,9 +115,6 @@
                     }
                 }
                 
-                $("#confirmAsientosBtn").on("click", ()=>{
-                    $("#asientosMenu").modal("hide");
-                });
             });
             
             $(document).on('hide.bs.modal', '#asientosMenu', function() {
