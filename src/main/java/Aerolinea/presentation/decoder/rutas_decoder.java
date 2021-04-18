@@ -29,14 +29,17 @@ public class rutas_decoder implements Decoder.Text<Ruta> {
     @Override
     public Ruta decode(String s) throws DecodeException {
         Gson gson = new Gson();
-        Ruta respuesta = null;
+        Ruta respuesta = new Ruta(0);
         System.out.println(s);
         ObjectMapper mapper = new ObjectMapper();
        try {
             List<String> lista = mapper.readValue(s, List.class);
-            if (mapper.readValue(lista.get(0), Map.class).get("metodo").toString().equals("Guardar")){
-                respuesta = gson.fromJson(mapper.writeValueAsString(lista), Ruta.class);                
-                System.out.println(":VVVVVVVVVVVVVVVVVV SIM");
+            System.out.println(lista.get(0));
+            Map<String, String> aux = mapper.readValue(lista.get(0), Map.class);
+            if (aux.get("metodo").equals("Guardar")){
+                aux.remove("metodo");
+                respuesta = gson.fromJson(mapper.writeValueAsString(aux), Ruta.class);   
+                respuesta.setId(1);
                 
             }
        }
@@ -48,7 +51,7 @@ public class rutas_decoder implements Decoder.Text<Ruta> {
 
     @Override
     public boolean willDecode(String s) {
-        return true;
+        return (s != null);
     }
 
     @Override

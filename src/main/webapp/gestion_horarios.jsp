@@ -27,7 +27,7 @@
         
         <div  style="height:70px;">
             <div>Agregar un nuevo horario</div>
-            <div class="dropdown">
+            <div id = "rutas_bd" class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Ruta
             </button>
@@ -37,10 +37,10 @@
                 <a class="dropdown-item" href="#">Something else here</a>-->
             </div>
         </div>
-                <a>Día</a><input style="width: 200px" type="text" >
-                <a>Hora de salida</a><input style="width: 200px" type="text" >
-                <a>Hora de llegada</a><input style="width: 200px" type="text" >
-                <a>Precio</a><input style="width: 200px" type="text" >
+                <a>Día</a><input id = "dia" style="width: 200px" type="text" >
+                <a>Hora de salida</a><input id = "hora_sal" style="width: 200px" type="text" >
+                <a>Hora de llegada</a><input id = "hora_lleg" style="width: 200px" type="text" >
+                <a>Precio</a><input id = "precio" style="width: 200px" type="text" >
             <button type="button" class="btn btn-dark">Guardar</button>
         
         
@@ -63,6 +63,35 @@
                     </tbody>
                 </table>
                  </div>-->
+
+    <script>
+        var ws = new WebSocket("ws://localhost:8084/aerolinea/rutas");
+
+        ws.onopen = function(event){
+            ws.send(JSON.stringify( ['{"metodo": "Leer"}'] ));
+        }
+        ws.onclose = function(event){
+        }
+
+        ws.onmessage = function(event){
+            console.log(JSON.parse(event.data));
+            leer_e_imprimir(JSON.parse(event.data));  
+        }
+        
+        function leer_e_imprimir(rutas){
+            var db_rutas = $("#rutas_bd");
+            rutas.forEach( (ruta)=>{rowRuta(db_rutas, ruta);} );
+        }
+
+        function rowRuta(tabla_rutas, ruta){
+            var db =$("<a class='dropdown-item' href='#'>"+
+                       ruta.id + " - " + 
+                       ruta.origen + " - " +
+                       ruta.destino + "</a>");
+                tabla_rutas.append(db);        
+            }
+            
+            
         
     </body>
         <jsp:include page="footer.jsp" />

@@ -30,9 +30,9 @@
                 <a class="dropdown-item" href="#">Something else here</a>-->
             </div>
         </div>
-                <a id="Salida">Salida</a><input style="width: 200px" type="text" >
-                <a id="Llegada">Llegada</a><input style="width: 200px" type="text" >
-                <a id="Duracion">Duración</a><input style="width: 200px" type="text" >
+                <a>Salida</a><input id="Salida" style="width: 200px" type="text" >
+                <a>Llegada</a><input id="Llegada" style="width: 200px" type="text" >
+                <a>Duración</a><input id="Duracion" style="width: 200px" type="text" >
             <button id="guarda_ruta" type="button" class="btn btn-dark">Guardar</button>
         
         
@@ -65,6 +65,7 @@
             }
 
             ws.onmessage = function(event){
+                console.log(JSON.parse(event.data));
                 leer_e_imprimir(JSON.parse(event.data));  
 
             }
@@ -72,10 +73,10 @@
             
             function leer_e_imprimir(rutas){
                 var tabla_rutas = $("#tabla_rutas");
-                rutas.forEach( (ruta)=>{rowAvion(tabla_rutas, ruta);} );
+                rutas.forEach( (ruta)=>{rowRuta(tabla_rutas, ruta);} );
             }
             
-            function rowAvion(tabla_rutas, ruta){
+            function rowRuta(tabla_rutas, ruta){
                 var tr =$("<tr id = ruta"+ruta.id+ "/>");
                     tr.html("<td> "+ruta.id+" </td>"+
                     "<td> "+ruta.origen+" </td>"+
@@ -87,16 +88,19 @@
                 
             function loaded(){
                 $("#guarda_ruta").on("click", () => {
-                    if (validate()) {
+                    if (validate()) {                        
+                        console.log("Debería funcionar")
                         var ruta = {
                         metodo: "Guardar",
                         type: "Ruta",
-                        origen: $("#usuario").val(),
-                        destino: $("#clave").val(),
-                        duracion: $("#duracion").val()
+                        origen: $("#Salida").val(),
+                        destino: $("#Llegada").val(),
+                        duracion: $("#Duracion").val()
                         };
                         let lista = [];
                         lista.push(JSON.stringify(ruta));
+                        
+                        location.reload();
                         ws.send(JSON.stringify(lista));
                         
                     }
@@ -108,12 +112,15 @@
             function validate() {
                 var val = true;
                 if ($("#Salida").val() === '') {
+                    $("#Salida").css("background-color", "pink");
                     val = false;
                 }
                 if ($("#Llegada").val() === '') {
+                    $("#Llegada").css("background-color", "pink");
                     val = false;
                 }
                 if ($("#Duracion").val() === '') {
+                    $("#Duracion").css("background-color", "pink");
                     val = false;
                 }
                 return val;

@@ -36,10 +36,11 @@ public class rutas_WS {
     }
 
     @OnMessage
-    public List<Ruta> onMessage(Session session, Ruta ruta) throws IOException, SQLException, EncodeException {        
+    public List<Ruta> onMessage(Session session, Ruta ruta) throws IOException, SQLException, EncodeException { 
+        System.out.println("Entró a rutasWS");
         Aerolinea.model.Model model = Model.instance();   
         
-        if (ruta != null){
+        if (ruta.getId() != 0){
             model.insertRuta(ruta);
         }
              
