@@ -8,7 +8,6 @@
          <jsp:include page="header.jsp" />
     </head>
     <body>
-        <button id="confirmBtn">xf</button>
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
@@ -26,7 +25,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <table class="table table-striped">
+                    <table id="tabla" class="table table-striped">
                         <thead class="bg-warning" style="text-align: center">
                             <th>Origen</th>
                             <th>Destino</th>
@@ -60,6 +59,7 @@
 
                                             </tbody>
                                         </table>
+                                    <h3><label id="PrecioLabel" class></label></h3>
                                     
                                 </div>
                                 <div class="modal-footer col-sm-12" style="display: inline">
@@ -80,6 +80,8 @@
         // VARIABLES --
         var ws;
         var asientos = [];
+        var vuelos = [];
+        var vuelo = null;
         //----------------
         
         function init(){
@@ -90,65 +92,78 @@
             });
             
             $(document).on('hide.bs.modal', '#asientosMenu', function() {
+                asientos = [];
                 $("#asientosTableHead").html("");
                 $("#asientosTableBody").html("");
+                $("#PrecioLabel").html("");
             });
             
             $("#buscarBtn").on("click", ()=>{
                 console.log($("#idaFld").val());
             });
+            
+            $("#confirmAsientosBtn").on("click", ()=>{
+                    confirmarCompra();
+            });
+            
         }
         
-        function seleccionarAsientos(){
-            var c = 0;
-            $("#asientosTableHead").append("<th style='text-align: center;'>X</th>");
-            for(var i = 1; i<12;i++){
-                $("#asientosTableHead").append(
-                    "<th style='text-align: center;'>"+i+"</th>"    
-                    );
+        function seleccionarAsientos(num){
+            if(!userActive){
+                alert("Para comprar un vuelo debe loguearse o registrarse primero.")
             }
-            for(var i = 0; i<9; i++){
-                var tr = $("<tr />");
-                tr.append("<td style='text-align: center;'>"+(i+1)+"</td>");
-                for(var j = 0; j<11; j++){
-                    tr.append(
-                        '<td style="text-align: center;">'+
-                        '<div class="form-check form-check-inline">'+
-                            '<input class="form-check-input" style="display: none" name="asientos" type="checkbox" id="checkbox'+c+'" value="'+(i+1)+','+(j+1)+'">'+
-                            '<label class="btn btn-lg btn-outline-secondary" id=checklabel'+c+' for="checkbox'+c+'" onclick="changeBox(checkbox'+c+', checklabel'+c+')"></label>'+
-                        '</div>'+
-                        '</td>'
+            else{
+                $("#asientosMenu").modal("show");
+                
+                vuelo = vuelos[num];
+                var c = 0;
+                $("#asientosTableHead").append("<th style='text-align: center;'>X</th>");
+                for(var i = 1; i<vuelo.horario.avion.tipoavion.columnas+1;i++){
+                    $("#asientosTableHead").append(
+                        "<th style='text-align: center;'>"+i+"</th>"    
                         );
-                    c++;
                 }
-                $("#asientosTableBody").append(tr);
-
-                if(i < 9-1 && (i+1) % 3 === 0){
+                for(var i = 0; i<vuelo.horario.avion.tipoavion.filas; i++){
                     var tr = $("<tr />");
-                    for(var j = 0; j<12;j++){
+                    tr.append("<td style='text-align: center;'>"+(i+1)+"</td>");
+                    for(var j = 0; j<vuelo.horario.avion.tipoavion.columnas; j++){ //Dibuja las celdas de asientos
                         tr.append(
-                            "<td style='text-align: center;'>-</td>"    
+                            '<td style="text-align: center;">'+
+                            '<div class="form-check form-check-inline">'+
+                                '<input class="form-check-input" style="display: none" name="asientos" type="checkbox" id="checkbox'+c+'" value="'+(i+1)+','+(j+1)+'">'+
+                                '<label class="btn btn-lg btn-outline-secondary" id=checklabel'+c+' for="checkbox'+c+'" onclick="changeBox(checkbox'+c+', checklabel'+c+', '+vuelo.horario.precio+')"></label>'+
+                            '</div>'+
+                            '</td>'
                             );
+                        c++;
                     }
                     $("#asientosTableBody").append(tr);
+
+                    if(i < vuelo.horario.avion.tipoavion.filas-1 && (i+1) % 3 === 0){ // Dibuja una linea en blanco para el pasillo
+                        var tr = $("<tr />");
+                        for(var j = 0; j<12;j++){
+                            tr.append(
+                                "<td style='text-align: center;'>-</td>"    
+                                );
+                        }
+                        $("#asientosTableBody").append(tr);
+                    }
+
                 }
 
-            }
-            $("input[name='asientos']").on("change", ()=>{
-                console.log(12321412412);
-            });
-
-            var x = $("input[name='asientos']");
-            for(var i = 0; i < x.length; i++){
-                if(x[i].value === '7,5'){
-                    $("#checklabel"+x[i].id.match(/\d+/)[0]).addClass("btn-danger");
-                    $("#"+x[i].id).add("disabled");
+                var x = $("input[name='asientos']"); // Asientos NO disponibles
+                for(var i = 0; i < x.length; i++){
+                    if(x[i].value === '7,5'){
+                        $("#checklabel"+x[i].id.match(/\d+/)[0]).addClass("btn-danger");
+                        $("#"+x[i].id).add("disabled");
+                    }
                 }
+
+                
             }
         }
         
-        function changeBox(check, label){
-            var checklist = $("input[name='asientos']:checked").toArray();
+        function changeBox(check, label, price){
             
             if(asientos.includes(check)){
                 asientos.splice(asientos.indexOf(check), 1);
@@ -156,6 +171,9 @@
                 //$('#'+check.id).prop("checked", "");
             }
             else{
+                asientos.push(check);
+                $("#"+label.id).addClass("btn-success");
+                /*
                 if(asientos.length < 2){
                     asientos.push(check);
                     $("#"+label.id).addClass("btn-success");
@@ -165,27 +183,33 @@
                     $('#'+a).prop("checked", "");
                     alert('Seleccione un maximo de ' + 2 + ' Asientos');
                 }
+                */
+                
             }
-            console.log("CheckList");
-            for(var i = 0; i < checklist.length; i++){
-                console.log(checklist[i].value);
-            }
-            console.log("Asientos");
+            
+            $("#PrecioLabel").html(
+                "Precio total por "+asientos.length+" asientos es: <br> "+price*asientos.length
+                );
+        }
+        
+        function confirmarCompra(){
+            let valores = [];
+            valores.push(JSON.stringify({metodo: "insert"}));
+            
+            valores.push(JSON.stringify({precio: vuelo.horario.precio*asientos.length, cliente: {username: user}, vuelo: vuelo}));
+            
             for(var i = 0; i < asientos.length; i++){
-                console.log(asientos[i].value);
+                var fc = asientos[i].value.split(',');
+                valores.push(JSON.stringify({id: 1, fila:fc[0], columna:fc[1]}));
             }
+            ws.send(JSON.stringify(valores));
         }
         
         function initWS(){
             ws = new WebSocket("ws://localhost:8084/aerolinea/vuelos");
             ws.onopen = function(event){
-                var rutaprueba = {"id": 1, "origen": "CR", "destino": "JPN", "duracion": 20};
-                rutaprueba.metodo = "selectAll";
                 let a = [];
                 a.push(JSON.stringify({"metodo": "selectAll"}));
-                a.push(JSON.stringify({"id": 1, "origen": "CR", "destino": "JPN", "duracion": 20}));
-                a.push(JSON.stringify({"id": 2, "origen": "CR", "destino": "PAN", "duracion": 10}));
-                a.push(JSON.stringify({"id": 3, "origen": "CR", "destino": "US", "duracion": 3}));
                 ws.send(JSON.stringify(a));
             };
             ws.onclose = function(event){
@@ -195,7 +219,8 @@
                 var data = JSON.parse(event.data);
                 switch(data[0].metodo){
                     case "selectAll":
-                        listVuelos(data.slice(1));
+                        vuelos = data.slice(1);
+                        listVuelos();
                         break;
                     case "insert":
                         break;
@@ -204,8 +229,9 @@
             };
         }
         
-        function listVuelos(lista){
-            lista.forEach( v => {
+        function listVuelos(){
+            var c = 0;
+            vuelos.forEach( v => {
                 var tr = $("<tr style='text-align: center' />");
                 tr.append("<td>"+v.horario.ruta.origen+"</td>");
                 tr.append("<td>"+v.horario.ruta.destino+"</td>");
@@ -213,10 +239,20 @@
                 tr.append("<td>"+v.regreso+"</td>");
                 tr.append("<td>"+v.horario.precio+"</td>");
                 tr.append("<td>"+v.horario.avion.tipoavion.filas * v.horario.avion.tipoavion.columnas+"</td>");
-                tr.append("<td><button>comprar</button></td>");
+                tr.append("<td><button class='btn btn-sm btn-secondary' onclick='seleccionarAsientos("+c+")'>comprar</button></td>");
                 $("#vuelosTable").append(tr);
+                c++;
+            });
+            
+            $('#tabla').DataTable({
+                searching: false,
+                lengthMenu: [5, 10, 20, 30],
+                language: {
+                    "url": "css/Spanish.json"
+                }
             });
         }
+        
         
         init();
         

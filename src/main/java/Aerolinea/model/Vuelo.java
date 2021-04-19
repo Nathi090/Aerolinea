@@ -6,6 +6,7 @@
 package Aerolinea.model;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,6 +18,7 @@ public class Vuelo {
     private Date ida;
     private Date regreso;
     private Horario horario;
+    private List<Tiquete> tiquetes;
 
     public Vuelo(int id) {
         this.id = id;
@@ -27,6 +29,15 @@ public class Vuelo {
         this.ida = ida;
         this.regreso = regreso;
         this.horario = horario;
+        this.tiquetes = null;
+    }
+
+    public Vuelo(int id, Date ida, Date regreso, Horario horario, List<Tiquete> tiquetes) {
+        this.id = id;
+        this.ida = ida;
+        this.regreso = regreso;
+        this.horario = horario;
+        this.tiquetes = tiquetes;
     }
 
     public int getId() {
@@ -59,6 +70,14 @@ public class Vuelo {
 
     public void setHorario(Horario horario) {
         this.horario = horario;
+    }
+
+    public List<Tiquete> getTiquetes() {
+        return tiquetes;
+    }
+
+    public void setTiquetes(List<Tiquete> tiquetes) {
+        this.tiquetes = tiquetes;
     }
 
     @Override

@@ -9,6 +9,7 @@
         
         <script src="js/jquery-3.6.0.min.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
         
         <link href="css/bootstrap.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
@@ -84,6 +85,17 @@
         
             
     </nav>
+              <%if(!empty){%>
+              <script>
+                  var userActive = true;
+                  var user = '<%=usuario_WS.user.get("usuario")%>';
+              </script>
+              <%}%>
+              <%if(empty){%>
+              <script>
+                  var userActive = false;
+              </script>
+              <%}%>
     <script>
         function onload(){
             $('#logout').on("click",()=>{ logOut();});

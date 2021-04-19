@@ -20,10 +20,14 @@ public class Connection {
 
     public static java.sql.Connection getConnection(){
         try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
             if(conn == null)
                 DriverManager.registerDriver(new OracleDriver());
                 conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "root");
         } catch (SQLException ex) {
+            conn = null;
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return conn;

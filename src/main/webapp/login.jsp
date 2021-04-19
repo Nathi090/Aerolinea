@@ -28,7 +28,7 @@
                 var ws = new WebSocket("ws://localhost:8084/aerolinea/usuario");
 
                 ws.onopen = function(event){
-                    ws.send(SON.stringify(JSON.stringify(usuario));
+                    ws.send(JSON.stringify(usuario));
                 }
                 ws.onclose = function(event){
                 }

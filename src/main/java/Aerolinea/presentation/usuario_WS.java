@@ -42,6 +42,7 @@ public class usuario_WS {
         Boolean existe = model.existe_usuario(usuario);
         if(existe){
             user.put(session.getId(), usuario.getUsername());
+            user.put("usuario", usuario.getUsername());
         }
         return existe;
     }
