@@ -11,6 +11,7 @@ import Aerolinea.model.Ruta;
 import Aerolinea.model.TipoAvion;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,29 +26,21 @@ import javax.websocket.EndpointConfig;
  *
  * @author nati2
  */
-public class rutas_decoder implements Decoder.Text<Ruta> {
+public class horarios_decoder implements Decoder.Text<Horario> {
 
     @Override
-    public Ruta decode(String s) throws DecodeException {
-        Gson gson = new Gson();
-        Ruta respuesta = new Ruta(0);
-        System.out.println(s);
-        ObjectMapper mapper = new ObjectMapper();
+    public Horario decode(String s) throws DecodeException {
+        //Gson gson = new Gson();
+        Gson gson=  new GsonBuilder().create();
+        Horario respuesta = null;
        try {
-            List<String> lista = mapper.readValue(s, List.class);
-            System.out.println(lista.get(0));
-            Map<String, String> aux = mapper.readValue(lista.get(0), Map.class);
-            if (aux.get("metodo").equals("Guardar")){
-                aux.remove("metodo");
-                respuesta = gson.fromJson(mapper.writeValueAsString(aux), Ruta.class);   
-                respuesta.setId(1);
-                
-            }
+          respuesta = gson.fromJson(s, Horario.class);
        }
         catch (Exception ex) {
             System.out.println(ex);
         }
         return respuesta;
+        
     }
 
     @Override

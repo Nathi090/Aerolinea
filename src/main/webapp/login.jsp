@@ -56,6 +56,7 @@
                         username: $("#usuario").val(),
                         clave: $("#clave").val()  
                         };
+                        console.log(usuario);
                         //addLogout();
                         cargar(usuario);
                         

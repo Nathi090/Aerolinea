@@ -1,6 +1,7 @@
 package Aerolinea.model;
 
 import Aerolinea.data.AvionDAO;
+import Aerolinea.data.HorarioDAO;
 import Aerolinea.data.RutasDAO;
 import Aerolinea.data.TipoAvionDAO;
 import Aerolinea.data.UsuarioDAO;
@@ -30,12 +31,14 @@ public class Model {
     TipoAvionDAO tipo;
     UsuarioDAO usuario;
     RutasDAO rutas;
+    HorarioDAO horarios;
     
     private Model(){
         avion = new AvionDAO();
         tipo = new TipoAvionDAO();
         usuario = new UsuarioDAO();
         rutas = new RutasDAO();
+        horarios = new HorarioDAO();
         
     }
     
@@ -62,6 +65,14 @@ public class Model {
     
     public List<Vuelo> vuelos(){
         return VueloDAO.selectAll();
+    }
+
+    public void horario(Horario horario) {
+        horarios.insert(horario);
+    }
+
+    public void insertAvion(Avion avionn) {
+        avion.insert(avionn);
     }
     
 }

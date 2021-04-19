@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Horario {
     private int id;
     private String dia;
-    private Date hora;
+    private String hora;
     private float precio;
     private float descuento;
     private Avion avion;
@@ -24,7 +24,7 @@ public class Horario {
         this.id = id;
     }
 
-    public Horario(int id, String dia, Date hora, float precio, float descuento, Avion avion, Ruta ruta) {
+    public Horario(int id, String dia, String hora, float precio, float descuento, Avion avion, Ruta ruta) {
         this.id = id;
         this.dia = dia;
         this.hora = hora;
@@ -50,11 +50,11 @@ public class Horario {
         this.dia = dia;
     }
 
-    public Date getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(Date hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 

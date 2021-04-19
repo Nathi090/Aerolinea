@@ -10,42 +10,70 @@
     <body>
         <div  style="height:70px;">
             <div>Agregar un nuevo avión</div>
-                <a>ID</a><input style="width: 200px" type="text" >
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Ruta
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <!--                <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>-->
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Horario
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <!--                <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>-->
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tipo de Avión
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <!--                <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>-->
-                    </div>
-                </div>
-            <button type="button" class="btn btn-dark">Guardar</button>
+                <a>Año</a><input id = "anno" style="width: 200px" type="number" >
+                <a>Modelo</a><input id = "modelo" style="width: 200px" type="text" >
+                <a>Marca</a><input id = "marca" style="width: 200px" type="text" >
+                
+                
+                
+            <button type="button" id="GuardaAvion" class="btn btn-dark">Guardar</button>
         
         
         </div>
-       
+    <script>
+        
+            function cargar(avion){
+            var ws = new WebSocket("ws://localhost:8084/aerolinea/aviones");
+
+            ws.onopen = function(event){
+                ws.send(JSON.stringify(avion));
+            }
+            ws.onclose = function(event){
+            }
+
+           ws.onmessage = function(event){ 
+                    
+            }}
+    
+    
+            function loaded(){
+                $("#GuardaAvion").on("click", () => {
+                    if (validate()) {                        
+                        console.log("Debería funcionar")
+                        var avion = {
+                        metodo: "Guardar",
+                        type: "Avion",
+                        anno: $("#anno").val(),
+                        modelo: $("#modelo").val(),
+                        marca: $("#marca").val()
+                        };
+                        cargar(JSON.stringify(avion));
+                        location.reload();
+                    }
+                    return false;
+                });
+
+            }
+
+            function validate() {
+                var val = true;
+                if ($("#anno").val() === '') {
+                    $("#anno").css("background-color", "pink");
+                    val = false;
+                }
+                if ($("#modelo").val() === '') {
+                    $("#modelo").css("background-color", "pink");
+                    val = false;
+                }
+                if ($("#marca").val() === '') {
+                    $("#marca").css("background-color", "pink");
+                    val = false;
+                }
+                return val;
+            }
+            
+            $(loaded);
+    </script>
         
     </body>
         <jsp:include page="footer.jsp" />
