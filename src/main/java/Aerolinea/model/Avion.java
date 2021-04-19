@@ -34,6 +34,12 @@ public class Avion {
         this.marca = marca;
         this.tipoavion = tipoavion;
     }
+    public Avion(int id, int anno, String modelo, String marca) {
+        this.id = id;
+        this.anno = anno;
+        this.modelo = modelo;
+        this.marca = marca;
+    }
 
     public int getId() {
         return id;

@@ -35,7 +35,7 @@
             var ws = new WebSocket("ws://localhost:8084/aerolinea/aviones");
 
             ws.onopen = function(event){
-                ws.send("Enviar");
+                ws.send(JSON.stringify( '{"metodo": "Leer"}' ));
             }
             ws.onclose = function(event){
             }

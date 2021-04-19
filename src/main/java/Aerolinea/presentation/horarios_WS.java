@@ -6,11 +6,16 @@
 package Aerolinea.presentation;
 
 import Aerolinea.model.Avion;
+import Aerolinea.model.Horario;
 import Aerolinea.model.Model;
 import Aerolinea.model.Ruta;
 import Aerolinea.model.TipoAvion;
 import Aerolinea.presentation.decoder.aviones_decoder;
+import Aerolinea.presentation.decoder.horarios_decoder;
+import Aerolinea.presentation.decoder.rutas_decoder;
 import Aerolinea.presentation.encoder.aviones_encoder;
+import Aerolinea.presentation.encoder.horarios_encoder;
+import Aerolinea.presentation.encoder.rutas_encoder;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,34 +28,24 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint(value="/aviones", 
-  encoders = aviones_encoder.class,
-  decoders = aviones_decoder.class)
+@ServerEndpoint(value="/horarios", 
+  encoders = horarios_encoder.class,
+  decoders = horarios_decoder.class)
 
-public class aviones_WS {
+public class horarios_WS {
     @OnOpen
     public void onOpen(Session session) throws IOException {
        
     }
 
     @OnMessage
-    public List<Avion> onMessage(Session session, Avion avion) throws IOException, SQLException, EncodeException {
-        System.out.println("Entró a AvionesWS");
-        Aerolinea.model.Model model = Model.instance();   
-        
-        if (avion.getId() != 0){
-            model.insertAvion(avion);
-        }
-             
-        List<Avion> aviones = new ArrayList<>();
-         try {
-            aviones = model.aviones();
-            System.out.println("sent ");
-        } catch (Exception ex) {
-             System.out.println(ex);
-        }
-        
-        return aviones;
+    public String onMessage(Session session, Horario horario) throws IOException, SQLException, EncodeException { 
+        System.out.println("Entró a horariosWS");
+        System.out.println(horario.toString());
+        Model model = Model.instance();
+        model.horario(horario);
+        System.out.println("Sent");
+        return " ";
     }
 
     @OnClose
