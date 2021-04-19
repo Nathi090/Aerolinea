@@ -39,6 +39,22 @@ public class ReservaDAO {
         return flag;
     }
     
+    public static int selectLastID(){
+        int val = 0;
+        try {         
+            PreparedStatement stm = Connection.getConnection().prepareStatement("select reserva_seq.currval from dual");
+            ResultSet rs = stm.executeQuery();
+            
+            if(rs.next()){
+                val = rs.getInt("CURRVAL");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return val;
+    }
+    
     public static Reserva select(int id){
         Reserva reserva = null;
         try {

@@ -6,7 +6,9 @@
 package Aerolinea.presentation;
 
 import Aerolinea.model.Model;
+import Aerolinea.model.Reserva;
 import Aerolinea.model.Ruta;
+import Aerolinea.model.Tiquete;
 import Aerolinea.model.Vuelo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -43,7 +45,14 @@ public class vuelos_WS {
                     response += gson.toJson(vuelos).replace('[', ',');
                     return response;
                 case "insert":
-                    
+                    Reserva reserva = gson.fromJson(lista.get(1), Reserva.class);
+                    lista.remove(0);
+                    lista.remove(1);
+                    ArrayList<Tiquete> tiquetes = new ArrayList<>();
+                    for(int i = 0; i<lista.size(); i++){
+                        tiquetes.add(gson.fromJson(lista.get(i), Tiquete.class));
+                    }
+                    Model.instance().reservar(reserva, tiquetes);
                     return "121234";
                 default:
                     return "1 - a";

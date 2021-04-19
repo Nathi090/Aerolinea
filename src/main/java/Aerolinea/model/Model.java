@@ -2,8 +2,10 @@ package Aerolinea.model;
 
 import Aerolinea.data.AvionDAO;
 import Aerolinea.data.HorarioDAO;
+import Aerolinea.data.ReservaDAO;
 import Aerolinea.data.RutasDAO;
 import Aerolinea.data.TipoAvionDAO;
+import Aerolinea.data.TiqueteDAO;
 import Aerolinea.data.UsuarioDAO;
 import Aerolinea.data.VueloDAO;
 import java.sql.Connection;
@@ -73,6 +75,17 @@ public class Model {
 
     public void insertAvion(Avion avionn) {
         avion.insert(avionn);
+    }
+
+    public void reservar(Reserva reserva, ArrayList<Tiquete> tiquetes) {
+        int val = 0;
+        if( ReservaDAO.insert(reserva) ){
+            val = ReservaDAO.selectLastID();
+        }
+        for(int i=0; i< tiquetes.size(); i++){
+            tiquetes.get(i).setReserva(new Reserva(val));
+            TiqueteDAO.insert(tiquetes.get(i));
+        }
     }
     
 }
