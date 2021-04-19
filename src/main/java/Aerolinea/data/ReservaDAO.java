@@ -42,11 +42,11 @@ public class ReservaDAO {
     public static int selectLastID(){
         int val = 0;
         try {         
-            PreparedStatement stm = Connection.getConnection().prepareStatement("select reserva_seq.currval from dual");
+            PreparedStatement stm = Connection.getConnection().prepareStatement("select max(id) id from reserva");
             ResultSet rs = stm.executeQuery();
             
             if(rs.next()){
-                val = rs.getInt("CURRVAL");
+                val = rs.getInt("id");
             }
             
         } catch (SQLException ex) {

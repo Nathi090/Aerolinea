@@ -1,3 +1,9 @@
+<!-- LAB 1 - MOVILES -->
+<!-- 
+    Natalia Solano
+    Joy Bonilla
+    Grupo: 10am
+-->
 <%@page import="Aerolinea.presentation.usuario_WS"%>
 <%Boolean empty = usuario_WS.user.isEmpty();%>
 <!DOCTYPE html>
@@ -27,23 +33,25 @@
                     <li class="nav-item">        
                 <a href="index.jsp"><img src="Imagenes/logo.png" class="logo-brand"  style="width: 50px; height: 50px;"></a>
                 </li> 
-                
+                    <li class="nav-item">
+                            <a class="nav-link" href="vuelos.jsp"><strong>Ver vuelos</strong></a>
+                        </li>
                     <%if(empty){%>
                         <li class="nav-item">
                             <a class="nav-link" href="login.jsp"><strong>Ingresar</strong></a>
                         </li>    
+                          
 
                     <%}%>  
+                    
                     <%if(!empty){%>
                         <li class="nav-item">
                             <a id = "logout" class="nav-link" href="#"><strong>Salir</strong></a>
                         </li>    
-                    <%}%>   
+                      
 
                         
-                        <li class="nav-item">
-                            <a class="nav-link" href="vuelos.jsp"><strong>Ver vuelos</strong></a>
-                        </li>
+                      
                         <li class="nav-item">
                             <a class="nav-link" href="gestion_tipo_aviones.jsp"><strong>Gestión de tipos de aviones</strong></a>
                         </li>
@@ -61,7 +69,8 @@
                         <li class="nav-item">
                             <a class="nav-link" href="gestion_aviones.jsp"><strong>Gestión de aviones</strong></a>
                         </li>
-                    
+                   
+                    <%}%> 
                         </ul>
                       </div>
                     

@@ -150,7 +150,7 @@
                     }
 
                 }
-
+                /* Seccion sin terminar :C
                 var x = $("input[name='asientos']"); // Asientos NO disponibles
                 for(var i = 0; i < x.length; i++){
                     if(x[i].value === '7,5'){
@@ -158,7 +158,7 @@
                         $("#"+x[i].id).add("disabled");
                     }
                 }
-
+                */
                 
             }
         }
@@ -223,6 +223,7 @@
                         listVuelos();
                         break;
                     case "insert":
+                        location.reload();
                         break;
                         
                 }

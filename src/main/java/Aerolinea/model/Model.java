@@ -52,9 +52,12 @@ public class Model {
         return tipo.selectAll();
     }
 
-    public Boolean existe_usuario(Usuario usu) {
+    public Usuario existe_usuario(Usuario usu) {
         Usuario usuario_prueba = usuario.select(usu.getUsername());       
-        return  usuario_prueba != null && usu.getClave().equals(usuario_prueba.getClave());
+        if(usuario_prueba != null && usu.getClave().equals(usuario_prueba.getClave())){
+            return usuario_prueba;
+        }
+        return null;
     }
 
     public List<Ruta> rutas() {
@@ -79,9 +82,9 @@ public class Model {
 
     public void reservar(Reserva reserva, ArrayList<Tiquete> tiquetes) {
         int val = 0;
-        if( ReservaDAO.insert(reserva) ){
-            val = ReservaDAO.selectLastID();
-        }
+        ReservaDAO.insert(reserva);
+        val = ReservaDAO.selectLastID();
+        
         for(int i=0; i< tiquetes.size(); i++){
             tiquetes.get(i).setReserva(new Reserva(val));
             TiqueteDAO.insert(tiquetes.get(i));

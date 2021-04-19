@@ -39,12 +39,13 @@ public class usuario_WS {
     @OnMessage
     public Boolean onMessage(Session session, Usuario usuario) throws IOException, SQLException, EncodeException {
         Aerolinea.model.Model model = Model.instance(); 
-        Boolean existe = model.existe_usuario(usuario);
-        if(existe){
-            user.put(session.getId(), usuario.getUsername());
-            user.put("usuario", usuario.getUsername());
+        Usuario existe = model.existe_usuario(usuario);
+        if(existe != null){
+            user.put(session.getId(), existe.getUsername());
+            user.put("usuario", existe.getUsername());
+            user.put("tipo", String.valueOf(existe.getTipo()));
         }
-        return existe;
+        return existe != null;
     }
 
     @OnClose

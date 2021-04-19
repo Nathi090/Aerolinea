@@ -53,9 +53,9 @@ public class vuelos_WS {
                         tiquetes.add(gson.fromJson(lista.get(i), Tiquete.class));
                     }
                     Model.instance().reservar(reserva, tiquetes);
-                    return "121234";
+                    return response+"]";
                 default:
-                    return "1 - a";
+                    return "false";
             }
             
         } catch (IOException ex) {

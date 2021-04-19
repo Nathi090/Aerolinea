@@ -17,8 +17,8 @@ import java.util.logging.Logger;
  * @author JoyBB
  */
 public class TiqueteDAO {
-    private static final String INSERTAR = "call prc_ins_ruta(?,?,?)";
-    private static final String SELECTALL = "select * from ruta where reserva_id = ?";
+    private static final String INSERTAR = "call prc_ins_tiquete(?,?,?)";
+    private static final String SELECTALL = "select * from tiquete where reserva_id = ?";
     
     public static boolean insert(Tiquete tiquete){
         boolean flag = false;
