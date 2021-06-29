@@ -24,15 +24,15 @@ public class RutasDAO {
     
     public static boolean insert(Ruta ruta){
         boolean flag = false;
-        try {         
-            PreparedStatement stm = Connection.getConnection().prepareStatement(INSERTAR);
+        try(java.sql.Connection con = Connection.getConnection()) {         
+            PreparedStatement stm = con.prepareStatement(INSERTAR);
             
             stm.setString(1, ruta.getOrigen());
             stm.setString(2, ruta.getDestino());
             stm.setFloat(3, ruta.getDuracion());
             
             flag = stm.execute();
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -41,8 +41,8 @@ public class RutasDAO {
     
     public static Ruta select(int id){
         Ruta ruta = null;
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECT);
+        try(java.sql.Connection con = Connection.getConnection()) {
+            PreparedStatement stm = con.prepareStatement(SELECT);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             
@@ -52,6 +52,7 @@ public class RutasDAO {
                 ruta.setDestino(rs.getString("destino"));
                 ruta.setDuracion(rs.getInt("duracion"));
             }
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,8 +61,8 @@ public class RutasDAO {
     
     public static ArrayList<Ruta> selectAll(){
         ArrayList<Ruta> lista = new ArrayList<>();
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECTALL);
+        try(java.sql.Connection con = Connection.getConnection()) {
+            PreparedStatement stm = con.prepareStatement(SELECTALL);
             ResultSet rs = stm.executeQuery();
             
             while(rs.next()){
@@ -71,6 +72,7 @@ public class RutasDAO {
                 ruta.setDuracion(rs.getInt("duracion"));
                 lista.add(ruta);
             }
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

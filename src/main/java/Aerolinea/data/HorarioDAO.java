@@ -26,8 +26,8 @@ public class HorarioDAO {
     
     public static Horario select(int id){
         Horario horario = null;
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECT);
+        try (java.sql.Connection con = Connection.getConnection()) {
+            PreparedStatement stm = con.prepareStatement(SELECT);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             
@@ -39,7 +39,7 @@ public class HorarioDAO {
                 horario.setAvion(AvionDAO.select(rs.getInt("avion_id")));
                 horario.setRuta(RutasDAO.select(rs.getInt("ruta_id")));
             }
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(TipoAvionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -48,8 +48,8 @@ public class HorarioDAO {
     
     public static ArrayList<Horario> selectAll(){
         ArrayList<Horario> lista = new ArrayList<>();
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECTALL);
+        try (java.sql.Connection con = Connection.getConnection()){
+            PreparedStatement stm = con.prepareStatement(SELECTALL);
             ResultSet rs = stm.executeQuery();
             
             while(rs.next()){
@@ -61,7 +61,7 @@ public class HorarioDAO {
                 horario.setRuta(RutasDAO.select(rs.getInt("ruta_id")));
                 lista.add(horario);
             }
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(TipoAvionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,8 +69,8 @@ public class HorarioDAO {
     }
      public static boolean insert(Horario horario){
         boolean flag = false;
-        try {         
-            PreparedStatement stm = Connection.getConnection().prepareStatement(INSERTAR);
+        try (java.sql.Connection con = Connection.getConnection()){         
+            PreparedStatement stm = con.prepareStatement(INSERTAR);
             
             stm.setString(1, horario.getDia());
             stm.setString(2, horario.getHora());
@@ -79,7 +79,7 @@ public class HorarioDAO {
             stm.setInt(5, horario.getRuta().getId());
             
             flag = stm.execute();
-            
+            con.close();
         } catch (SQLException ex) {
             System.out.println("ERROR ESPERADO EN AGREGAR HORARIO");
                     }

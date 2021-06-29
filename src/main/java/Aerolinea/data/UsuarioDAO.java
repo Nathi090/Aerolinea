@@ -22,8 +22,8 @@ public class UsuarioDAO {
     
     public static boolean insert(Usuario user){
         boolean flag = false;
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(INSERTAR);
+        try(java.sql.Connection con = Connection.getConnection()) {
+            PreparedStatement stm = con.prepareStatement(INSERTAR);
             
             stm.setString(1, user.getUsername());
             stm.setString(2, user.getNombre());
@@ -38,7 +38,7 @@ public class UsuarioDAO {
             stm.setInt(11, user.getTipo());
             
             flag = stm.execute();
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(AvionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -47,8 +47,8 @@ public class UsuarioDAO {
     
     public static Usuario select(String username){
         Usuario user = null;
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECT);
+        try(java.sql.Connection con = Connection.getConnection()) {
+            PreparedStatement stm = con.prepareStatement(SELECT);
             stm.setString(1,username);
             ResultSet rs = stm.executeQuery();
             
@@ -65,7 +65,7 @@ public class UsuarioDAO {
                 user.setDireccion(rs.getString("direccion"));
                 user.setTipo(rs.getInt("tipo"));
             }
-            
+            con.close();
         } catch (SQLException ex) {
             System.out.println(ex);
         }

@@ -24,15 +24,15 @@ public class VueloDAO {
     
     public static boolean insert(Vuelo vuelo){
         boolean flag = false;
-        try {         
-            PreparedStatement stm = Connection.getConnection().prepareStatement(INSERTAR);
+        try(java.sql.Connection con = Connection.getConnection()) {         
+            PreparedStatement stm = con.prepareStatement(INSERTAR);
             
             stm.setDate(1, vuelo.getIda());
             stm.setDate(2, vuelo.getRegreso());
             stm.setInt(3, vuelo.getHorario().getId());
             
             flag = stm.execute();
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(AvionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -41,8 +41,8 @@ public class VueloDAO {
     
     public static Vuelo select(int id){
         Vuelo vuelo = null;
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECT);
+        try(java.sql.Connection con = Connection.getConnection()) {
+            PreparedStatement stm = con.prepareStatement(SELECT);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             
@@ -52,6 +52,7 @@ public class VueloDAO {
                 vuelo.setRegreso(rs.getDate("regreso"));
                 vuelo.setHorario(HorarioDAO.select(rs.getInt("horario_id")));
             }
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(AvionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,8 +61,8 @@ public class VueloDAO {
     
     public static ArrayList<Vuelo> selectAll(){
         ArrayList<Vuelo> lista = new ArrayList<>();
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECTALL);
+        try(java.sql.Connection con = Connection.getConnection()) {
+            PreparedStatement stm = con.prepareStatement(SELECTALL);
             ResultSet rs = stm.executeQuery();
             
             while(rs.next()){
@@ -71,6 +72,7 @@ public class VueloDAO {
                 vuelo.setHorario(HorarioDAO.select(rs.getInt("horario_id")));
                 lista.add(vuelo);
             }
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(AvionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

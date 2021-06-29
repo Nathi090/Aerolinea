@@ -23,8 +23,8 @@ public class TipoAvionDAO {
     
     public static TipoAvion select(int id){
         TipoAvion tipoavion = null;
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECT);
+        try(java.sql.Connection con = Connection.getConnection()) {
+            PreparedStatement stm = con.prepareStatement(SELECT);
             
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
@@ -33,7 +33,7 @@ public class TipoAvionDAO {
                 tipoavion.setFilas(rs.getInt("filas"));
                 tipoavion.setColumnas(rs.getInt("columnas"));
             }
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(TipoAvionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -42,8 +42,8 @@ public class TipoAvionDAO {
     
     public static ArrayList<TipoAvion> selectAll(){
         ArrayList<TipoAvion> lista = new ArrayList<>();
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECTALL);
+        try(java.sql.Connection con = Connection.getConnection()) {
+            PreparedStatement stm = con.prepareStatement(SELECTALL);
             ResultSet rs = stm.executeQuery();
             
             while(rs.next()){
@@ -52,7 +52,7 @@ public class TipoAvionDAO {
                 tipoavion.setColumnas(rs.getInt("columnas"));
                 lista.add(tipoavion);
             }
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(TipoAvionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

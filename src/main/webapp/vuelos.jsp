@@ -9,62 +9,69 @@
     </head>
     <body>
         <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    <input type="text" id="destinoFld" placeholder="Destino" class="form-control">
-                </div>
-                <div class="col-sm-3">
-                    <input type="date" id="idaFld" class="form-control">
-                </div>
-                <div class="col-sm-3">
-                    <input type="date" id="regresoFld" class="form-control">
-                </div>
-                <div class="col-sm-3">
-                    <button class="btn btn-success" id="buscarBtn" style="width: 100%">Buscar</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <table id="tabla" class="table table-striped">
-                        <thead class="bg-warning" style="text-align: center">
-                            <th>Origen</th>
-                            <th>Destino</th>
-                            <th>Fecha de salida</th>
-                            <th>Fecha de regreso</th>
-                            <th>Precio</th>
-                            <th>Asientos</th>
-                            <th>X</th>
-                        </thead>
-                        <tbody id="vuelosTable" class="bg-white">
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="modal fade" id="asientosMenu">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content" style="display: inline-table">
-                                <div class="modal-header" style="display: inline">
-                                    <h2>Seleccionar Asientos</h2>
-                                </div>
-                                <div class="modal-body">
-                                    
-                                        <table class="table table-bordered table-sm" id="asientosTable">
-                                            <thead id="asientosTableHead">
+            <div class="card" style="z">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <input type="text" id="origenFld" placeholder="Origen" class="form-control">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" id="destinoFld" placeholder="Destino" class="form-control">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="date" id="idaFld" class="form-control">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="date" id="regresoFld" class="form-control">
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-success" id="buscarBtn" style="width: 100%">Buscar</button>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px">
+                        <div class="col-sm-12">
+                            <table id="tabla" class="table table-striped">
+                                <thead class="bg-warning" style="text-align: center">
+                                    <th>Origen</th>
+                                    <th>Destino</th>
+                                    <th>Fecha de Salida</th>
+                                    <th>Fecha de Regreso</th>
+                                    <th>Precio</th>
+                                    <th>Asientos</th>
+                                    <th>X</th>
+                                </thead>
+                                <tbody id="vuelosTable" class="bg-white">
 
-                                            </thead>
-                                            <tbody id="asientosTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="modal fade" id="asientosMenu">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content" style="display: inline-table">
+                                        <div class="modal-header" style="display: inline">
+                                            <h2>Seleccionar Asientos</h2>
+                                        </div>
+                                        <div class="modal-body">
 
-                                            </tbody>
-                                        </table>
-                                    <h3><label id="PrecioLabel" class></label></h3>
-                                    
-                                </div>
-                                <div class="modal-footer col-sm-12" style="display: inline">
-                                    <input class="btn btn-outline-secondary" style="background-color: lightgray" value="Cancelar" data-dismiss="modal">
-                                    <input class="btn btn-success" style="background-color: lightgreen" id="confirmAsientosBtn" value="Confirmar" data-dismiss="modal">
+                                                <table class="table table-bordered table-sm" id="asientosTable">
+                                                    <thead id="asientosTableHead">
+
+                                                    </thead>
+                                                    <tbody id="asientosTableBody">
+
+                                                    </tbody>
+                                                </table>
+                                            <h3><label id="PrecioLabel" class></label></h3>
+
+                                        </div>
+                                        <div class="modal-footer col-sm-12" style="display: inline">
+                                            <input class="btn btn-outline-secondary" style="background-color: lightgray" value="Cancelar" data-dismiss="modal">
+                                            <input class="btn btn-success" style="background-color: lightgreen" id="confirmAsientosBtn" value="Confirmar" data-dismiss="modal">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -237,7 +244,12 @@
                 tr.append("<td>"+v.horario.ruta.origen+"</td>");
                 tr.append("<td>"+v.horario.ruta.destino+"</td>");
                 tr.append("<td>"+v.ida+"</td>");
-                tr.append("<td>"+v.regreso+"</td>");
+                if(v.regreso == null){
+                    tr.append("<td>Sin Regreso</td>");
+                }
+                else{
+                    tr.append("<td>"+v.regreso+"</td>");
+                }
                 tr.append("<td>"+v.horario.precio+"</td>");
                 tr.append("<td>"+v.horario.avion.tipoavion.filas * v.horario.avion.tipoavion.columnas+"</td>");
                 tr.append("<td><button class='btn btn-sm btn-secondary' onclick='seleccionarAsientos("+c+")'>comprar</button></td>");

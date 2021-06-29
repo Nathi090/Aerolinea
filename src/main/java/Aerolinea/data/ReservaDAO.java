@@ -25,14 +25,14 @@ public class ReservaDAO {
     
     public static boolean insert(Reserva reserva){
         boolean flag = false;
-        try {         
-            PreparedStatement stm = Connection.getConnection().prepareStatement(INSERTAR);
+        try (java.sql.Connection con = Connection.getConnection()){         
+            PreparedStatement stm = con.prepareStatement(INSERTAR);
             stm.setFloat(1, reserva.getPrecio());
             stm.setString(2, reserva.getCliente().getUsername());
             stm.setInt(3, reserva.getVuelo().getId());
             
             flag = stm.execute();
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -41,14 +41,14 @@ public class ReservaDAO {
     
     public static int selectLastID(){
         int val = 0;
-        try {         
-            PreparedStatement stm = Connection.getConnection().prepareStatement("select max(id) id from reserva");
+        try (java.sql.Connection con = Connection.getConnection()){         
+            PreparedStatement stm = con.prepareStatement("select max(id) id from reserva");
             ResultSet rs = stm.executeQuery();
             
             if(rs.next()){
                 val = rs.getInt("id");
             }
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -57,8 +57,8 @@ public class ReservaDAO {
     
     public static Reserva select(int id){
         Reserva reserva = null;
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECT);
+        try (java.sql.Connection con = Connection.getConnection()){
+            PreparedStatement stm = con.prepareStatement(SELECT);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             
@@ -68,6 +68,7 @@ public class ReservaDAO {
                 reserva.setCliente(UsuarioDAO.select(rs.getString("cliente_id")));
                 reserva.setVuelo(VueloDAO.select(rs.getInt("vuelo_id")));
             }
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,8 +77,8 @@ public class ReservaDAO {
     
     public static ArrayList<Reserva> selectAll(String user){
         ArrayList<Reserva> lista = new ArrayList<>();
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECTALL);
+        try (java.sql.Connection con = Connection.getConnection()){
+            PreparedStatement stm = con.prepareStatement(SELECTALL);
             stm.setString(1, user);
             ResultSet rs = stm.executeQuery();
             
@@ -88,6 +89,7 @@ public class ReservaDAO {
                 reserva.setVuelo(VueloDAO.select(rs.getInt("vuelo_id")));
                 lista.add(reserva);
             }
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

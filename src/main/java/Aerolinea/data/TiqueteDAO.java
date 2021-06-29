@@ -22,14 +22,14 @@ public class TiqueteDAO {
     
     public static boolean insert(Tiquete tiquete){
         boolean flag = false;
-        try {         
-            PreparedStatement stm = Connection.getConnection().prepareStatement(INSERTAR);
+        try(java.sql.Connection con = Connection.getConnection()) {         
+            PreparedStatement stm = con.prepareStatement(INSERTAR);
             stm.setInt(1, tiquete.getFila());
             stm.setInt(2, tiquete.getColumna());
             stm.setInt(3, tiquete.getReserva().getId());
             
             flag = stm.execute();
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -38,8 +38,8 @@ public class TiqueteDAO {
     
     public static Tiquete selectAll(int id){
         Tiquete tiquete = null;
-        try {
-            PreparedStatement stm = Connection.getConnection().prepareStatement(SELECTALL);
+        try(java.sql.Connection con = Connection.getConnection()) {
+            PreparedStatement stm = con.prepareStatement(SELECTALL);
             ResultSet rs = stm.executeQuery();
             
             while(rs.next()){
@@ -48,6 +48,7 @@ public class TiqueteDAO {
                 tiquete.setColumna(rs.getInt("columna"));
                 tiquete.setReserva(ReservaDAO.select(rs.getInt("reserva_id")));
             }
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

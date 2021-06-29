@@ -9,61 +9,71 @@
          
     </head>
     <body>
-        
-         <div style= "display: block; overflow: auto;">
-                <table class="table table-secondary table-scroll">
-                    <thead >
-                      <tr class="bg-secondary text-white">
-                            <th>ID</th>
-                            <th>Año</th>
-                            <th>Modelo</th>
-                            <th>Marca</th>
-                            <th>Pasajeros</th>
-                            <th>Filas</th>
-                            <th>Asientos/filas</th>
-                            
-                        </tr>
-                    </thead>
-                        <tbody id="tabla_aviones">
-                   
-                    </tbody>
-                </table>
-                 </div>
-        
-        <script>
-            
-            var ws = new WebSocket("ws://localhost:8084/aerolinea/aviones");
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <div style= "display: block; overflow: auto;">
+                        <table class="table" id="tabla">
+                            <thead >
+                              <tr class="bg-secondary text-white">
+                                    <th>ID</th>
+                                    <th>Año</th>
+                                    <th>Modelo</th>
+                                    <th>Marca</th>
+                                    <th>Pasajeros</th>
+                                    <th>Filas</th>
+                                    <th>Asientos/filas</th>
 
-            ws.onopen = function(event){
-                ws.send(JSON.stringify( '{"metodo": "Leer"}' ));
-            }
-            ws.onclose = function(event){
-            }
+                                </tr>
+                            </thead>
+                            <tbody id="tabla_aviones">
 
-            ws.onmessage = function(event){
-                leer_e_imprimir(JSON.parse(event.data));  
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script>
 
-            }
+        var ws = new WebSocket("ws://localhost:8084/aerolinea/aviones");
 
-            
-            function leer_e_imprimir(aviones){
-                var tabla_aviones = $("#tabla_aviones");
-                aviones.forEach( (avion)=>{rowAvion(tabla_aviones, avion);} );
-            }
-            
-            function rowAvion(tabla_aviones, avion){
-                var tr =$("<tr id = 'avion"+avion.id+ "'/>");
-                    tr.html("<td> "+avion.id+" </td>"+
-                    "<td> "+avion.anno+" </td>"+
-                    "<td> "+avion.modelo+" </td>"+
-                    "<td> "+avion.marca+" </td>"+
-                    "<td> "+avion.tipoavion.columnas * avion.tipoavion.filas+" </td>"+
-                    "<td> "+avion.tipoavion.filas+" </td>"+
-                    "<td> "+avion.tipoavion.columnas+" </td>");
-                tabla_aviones.append(tr);        
-            }
-            
-        </script>
+        ws.onopen = function(event){
+            ws.send(JSON.stringify( '{"metodo": "Leer"}' ));
+        }
+        ws.onclose = function(event){
+        }
+
+        ws.onmessage = function(event){
+            leer_e_imprimir(JSON.parse(event.data));  
+
+        }
+
+
+        function leer_e_imprimir(aviones){
+            var tabla_aviones = $("#tabla_aviones");
+            aviones.forEach( (avion)=>{rowAvion(tabla_aviones, avion);} );
+            $('#tabla').DataTable({
+                lengthMenu: [10, 20, 30],
+                language: {
+                    "url": "css/Spanish.json"
+                }
+            });
+        }
+
+        function rowAvion(tabla_aviones, avion){
+            var tr =$("<tr id = 'avion"+avion.id+ "'/>");
+                tr.html("<td> "+avion.id+" </td>"+
+                "<td> "+avion.anno+" </td>"+
+                "<td> "+avion.modelo+" </td>"+
+                "<td> "+avion.marca+" </td>"+
+                "<td> "+avion.tipoavion.columnas * avion.tipoavion.filas+" </td>"+
+                "<td> "+avion.tipoavion.filas+" </td>"+
+                "<td> "+avion.tipoavion.columnas+" </td>");
+            tabla_aviones.append(tr);        
+        }
+
+    </script>
         
         
     </body>    
