@@ -20,6 +20,9 @@
         
         </div>
         -->
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
         <div  style="height:70px;">
             <div>Agregar una nueva ruta</div>
             <div class="dropdown">
@@ -35,10 +38,11 @@
                 <a>Duración</a><input id="Duracion" style="width: 200px" type="number" >
             <button id="guarda_ruta" type="button" class="btn btn-dark">Guardar</button>
         
-        
+               
+
         </div>
          <div style= "display: block; overflow: auto;">
-                <table  class="table table-secondary table-scroll">
+                <table  id="tabla_ta" class="table">
                     <thead >
                       <tr class="bg-secondary text-white">
                             <th>ID</th>
@@ -53,6 +57,11 @@
                     </tbody>
                 </table>
                  </div>
+                     </div>
+
+                            </div>
+
+                        </div>
         
         <script>
             
@@ -74,6 +83,12 @@
             function leer_e_imprimir(rutas){
                 var tabla_rutas = $("#tabla_rutas");
                 rutas.forEach( (ruta)=>{rowRuta(tabla_rutas, ruta);} );
+                $('#tabla_ta').DataTable({
+                lengthMenu: [10, 20, 30],
+                language: {
+                    "url": "css/Spanish.json"
+                }
+            });
             }
             
             function rowRuta(tabla_rutas, ruta){

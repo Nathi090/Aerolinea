@@ -8,6 +8,9 @@
          <jsp:include page="header.jsp" />
     </head>
     <body>
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
         <div  style="height:70px;">
             <div>Agregar un nuevo avión</div>
                 <a>Año</a><input id = "anno" style="width: 200px" type="number" >
@@ -18,7 +21,9 @@
                 
             <button type="button" id="GuardaAvion" class="btn btn-dark">Guardar</button>
         
-        
+        </div>
+                    </div>
+                </div>
         </div>
     <script>
         

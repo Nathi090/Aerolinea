@@ -90,5 +90,9 @@ public class Model {
             TiqueteDAO.insert(tiquetes.get(i));
         }
     }
+
+    public Usuario usuario(String username) {
+        return UsuarioDAO.select(username);
+    }
     
 }

@@ -45,12 +45,7 @@
                     <%}%>  
                     
                     <%if(!empty){%>
-                        <li class="nav-item">
-                            <a id = "logout" class="nav-link" href="#"><strong>Salir</strong></a>
-                        </li>    
-                      
-
-                        
+                                            
                       
                         <li class="nav-item">
                             <a class="nav-link" href="gestion_tipo_aviones.jsp"><strong>Gestión de tipos de aviones</strong></a>
@@ -69,6 +64,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="gestion_aviones.jsp"><strong>Gestión de aviones</strong></a>
                         </li>
+                        
+                        <li class="nav-item">
+                            <a id = "perfil" class="nav-link" href="perfil.jsp"><strong>Perfil</strong></a>
+                        </li>    
+                      
+                        
+                        <li class="nav-item">
+                            <a id = "logout" class="nav-link" href="#"><strong>Salir</strong></a>
+                        </li>    
+                      
                    
                     <%}%> 
                         </ul>

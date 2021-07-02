@@ -24,8 +24,9 @@
 </form>
         </div>-->
         
-        
-        <div  style="height:70px">
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
             <div>Agregar un nuevo horario</div>
             <div class="input-group" style=" width: 300px">                                            
                 <input type="text" ID="datebox" class="form-control" value="Seleccione la ruta" readonly>
@@ -38,32 +39,21 @@
                     </ul>
                 </div>
             </div>
+            <div>
                 <a>Día</a><input id = "dia" style="width: 200px" type="date" >
                 <a>Hora de salida</a><input id = "hora_sal"  style="width: 200px" type="time" >
                 <a>Hora de llegada</a><input id = "hora_lleg"  style="width: 200px" type="time" >
                 <a>Precio</a><input id = "precio" style="width: 200px" type="text" >
             <button id = "guarda_horario" type="button" class="btn btn-dark">Guardar</button>
+             </div>
         
         
-        </div>
-        
-<!--         <div style= "display: block; overflow: auto;">
-                <table id="tabla" class="table table-secondary table-scroll">
-                    <thead >
-                      <tr class="bg-secondary text-white">
-                            <th>Día</th>
-                            <th>Horad de Salida</th>
-                            <th>Hora de llegada</th>
-                            <th>Precio</th>
-                            <th>Edición</th>
-                            
-                        </tr>
-                    </thead>
-                        <tbody>
-                    
-                    </tbody>
-                </table>
-                 </div>-->
+                            </div>
+
+                        </div>
+
+                    </div>
+
 
     <script>
        
