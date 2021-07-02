@@ -87,6 +87,7 @@ public class ReservaDAO {
                 reserva.setPrecio(rs.getFloat("precio"));
                 reserva.setCliente(UsuarioDAO.select(rs.getString("cliente_id")));
                 reserva.setVuelo(VueloDAO.select(rs.getInt("vuelo_id")));
+                reserva.setTiquetes(TiqueteDAO.selectAllFromReservation(rs.getInt("id")));
                 lista.add(reserva);
             }
             con.close();

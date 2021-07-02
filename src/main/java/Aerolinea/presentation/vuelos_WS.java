@@ -12,6 +12,9 @@ import Aerolinea.model.Tiquete;
 import Aerolinea.model.Vuelo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import jdk.nashorn.internal.runtime.JSONFunctions;
 
 @ServerEndpoint(value="/vuelos")
 public class vuelos_WS {
@@ -36,13 +40,21 @@ public class vuelos_WS {
     public String onMessage(Session session, String msg){
         Gson gson = new Gson();
         ObjectMapper mapper = new ObjectMapper();
+        System.out.println(msg);
+        
         try {
             List<String> lista = mapper.readValue(msg, List.class);
             String response = "[" + lista.get(0);
+            
             switch( mapper.readValue(lista.get(0), Map.class).get("metodo").toString() ){
                 case "selectAll":
                     List<Vuelo> vuelos = Model.instance().vuelos();
                     response += gson.toJson(vuelos).replace('[', ',');
+                    return response;
+                case "selectReservations":
+                    String user = mapper.readValue(lista.get(1), Map.class).get("user").toString();
+                    List<Reserva> reservas = Model.instance().reservas(user);
+                    response += gson.toJson(reservas).replace('[', ',');
                     return response;
                 case "insert":
                     Reserva reserva = gson.fromJson(lista.get(1), Reserva.class);
@@ -54,6 +66,11 @@ public class vuelos_WS {
                     }
                     Model.instance().reservar(reserva, tiquetes);
                     return response+"]";
+                case "updateSeats":
+                    for (Session sess : session.getOpenSessions()) {
+                        if (sess.isOpen())
+                            sess.getBasicRemote().sendText(msg);
+                    }
                 default:
                     return "false";
             }

@@ -9,6 +9,7 @@ import Aerolinea.model.Tiquete;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,22 +37,23 @@ public class TiqueteDAO {
         return flag;
     }
     
-    public static Tiquete selectAll(int id){
-        Tiquete tiquete = null;
+    public static ArrayList<Tiquete> selectAllFromReservation(int id){
+        ArrayList<Tiquete> tiquetes = new ArrayList();
         try(java.sql.Connection con = Connection.getConnection()) {
             PreparedStatement stm = con.prepareStatement(SELECTALL);
             ResultSet rs = stm.executeQuery();
             
             while(rs.next()){
-                tiquete = new Tiquete(rs.getInt("id"));
+                Tiquete tiquete = new Tiquete(rs.getInt("id"));
                 tiquete.setFila(rs.getInt("fila"));
                 tiquete.setColumna(rs.getInt("columna"));
                 tiquete.setReserva(ReservaDAO.select(rs.getInt("reserva_id")));
+                tiquetes.add(tiquete);
             }
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(RutasDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return tiquete;
+        return tiquetes;
     }
 }

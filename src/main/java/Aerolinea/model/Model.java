@@ -34,6 +34,7 @@ public class Model {
     UsuarioDAO usuario;
     RutasDAO rutas;
     HorarioDAO horarios;
+    ReservaDAO reservas;
     
     private Model(){
         avion = new AvionDAO();
@@ -41,7 +42,7 @@ public class Model {
         usuario = new UsuarioDAO();
         rutas = new RutasDAO();
         horarios = new HorarioDAO();
-        
+        reservas = new ReservaDAO();
     }
     
     public List<Avion> aviones() throws SQLException{
@@ -93,6 +94,8 @@ public class Model {
 
     public Usuario usuario(String username) {
         return UsuarioDAO.select(username);
+    public List<Reserva> reservas(String user) {
+        return reservas.selectAll(user);
     }
     
 }

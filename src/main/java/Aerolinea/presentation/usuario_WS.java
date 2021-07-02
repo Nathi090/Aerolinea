@@ -10,6 +10,7 @@ import Aerolinea.model.TipoAvion;
 import Aerolinea.model.Usuario;
 import Aerolinea.presentation.decoder.usuario_decoder;
 import Aerolinea.presentation.encoder.usuario_encoder;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class usuario_WS {
     }
 
     @OnMessage
-    public Boolean onMessage(Session session, Usuario usuario) throws IOException, SQLException, EncodeException {
+    public String onMessage(Session session, Usuario usuario) throws IOException, SQLException, EncodeException {
         Aerolinea.model.Model model = Model.instance(); 
         Usuario existe = model.existe_usuario(usuario);
         if(existe != null){
@@ -45,7 +46,8 @@ public class usuario_WS {
             user.put("usuario", existe.getUsername());
             user.put("tipo", String.valueOf(existe.getTipo()));
         }
-        return existe != null;
+        Gson gson = new Gson();
+        return gson.toJson(existe);
     }
 
     @OnClose

@@ -36,14 +36,12 @@
                 ws.onmessage = function(event){ 
                     var usu = JSON.parse(event.data);
                     console.log(usu)
-                    switch(usu) {
-                        case true:
-                            document.location = "index.jsp";
-                            break;
-                        case false:
-                            $("#usuario").css("background-color", "pink");
-                            $("#clave").css("background-color", "pink");
-                            break;
+                    if(usu != null) {
+                        document.location = "index.jsp";
+                    }
+                    else{
+                        $("#usuario").css("background-color", "pink");
+                        $("#clave").css("background-color", "pink");
                     }
                 }
             }

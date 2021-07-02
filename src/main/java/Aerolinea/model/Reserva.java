@@ -5,6 +5,7 @@
  */
 package Aerolinea.model;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -16,6 +17,7 @@ public class Reserva {
     private float precio;
     private Usuario cliente;
     private Vuelo vuelo;
+    private ArrayList<Tiquete> tiquetes;
 
     public Reserva(int id) {
         this.id = id;
@@ -26,6 +28,7 @@ public class Reserva {
         this.precio = precio;
         this.cliente = cliente;
         this.vuelo = vuelo;
+        this.tiquetes = new ArrayList();
     }
 
     public int getId() {
@@ -58,6 +61,14 @@ public class Reserva {
 
     public void setVuelo(Vuelo vuelo) {
         this.vuelo = vuelo;
+    }
+
+    public ArrayList<Tiquete> getTiquetes() {
+        return tiquetes;
+    }
+
+    public void setTiquetes(ArrayList<Tiquete> tiquetes) {
+        this.tiquetes = tiquetes;
     }
 
     @Override

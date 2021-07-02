@@ -217,6 +217,8 @@
             ws.onopen = function(event){
                 let a = [];
                 a.push(JSON.stringify({"metodo": "selectAll"}));
+                console.log(JSON.stringify({"metodo": "selectAll"}))
+                console.log(a)
                 ws.send(JSON.stringify(a));
             };
             ws.onclose = function(event){
