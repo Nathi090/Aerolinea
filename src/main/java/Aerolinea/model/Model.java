@@ -94,6 +94,7 @@ public class Model {
 
     public Usuario usuario(String username) {
         return UsuarioDAO.select(username);
+    }
     public List<Reserva> reservas(String user) {
         return reservas.selectAll(user);
     }
